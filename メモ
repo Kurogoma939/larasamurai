@@ -1,5 +1,6 @@
 メモ
-
+⭐️：作業完了。
+・：作業中、今後の作業等。
 
 ⭐️マイグレーション（完了）
 作業テーブル定義とかする。作成（up) と削除(delete) 時の設定をしておく。：
@@ -19,14 +20,26 @@ php artisan migrateがエラー起きてる。database.phpファイルを修正�
 php artisan db:seed（実行）
 ※一回シーディングしたあと、追加で入れたい場合は最初のやつ含めるとエラーになるので、２回目以降は追加分のみいれる。
 ※主キー、副キーを設定した場合、副キーファイルをしっかりと作っておかないとエラーでる。
+（factory)
+　fakerを使って、ダミーデータを複数件作ることができる。make:factoryで作れる。
+　$faker->〇〇でいろいろなものが作成できる。
+　※今回とりあえずコードだけ打ってコメントアウト状態。
 
 
 ・ルート
 作業：ファイルとウェブブラウザを対応させる。URLの指定と思っておく。
 ファイル名：web.php
-Route::アクション('パスの指定/index',コントローラーファイル（処理内容)）
+Route::アクション('パスの指定/（URL)',コントローラーファイル（処理内容)）
 →このパスに行けばこの処理をさせるという感じ。
 →最後にやるべきか？
+
+GET	/users	index()	一覧表示
+GET	/users/create	create()	追加ページ
+POST	/users	store()	追加
+GET	/users/{id}	show()	該当データ表示
+GET	/users/{id}/edit	edit()	更新ページ
+PUT	/users/{id}	update()	更新
+DELETE	/users/{id}	destroy()	削除
 
 
 ・リクエスト（バリデーションあとで）
@@ -37,7 +50,8 @@ Route::アクション('パスの指定/index',コントローラーファイル
 作業：全体の制御。モデルがとってきたDBファイルをViewに反映させたりする。
 コントローラー　<--> モデル　<-->　データベース
 　→コントローラーに対してルーティングする。
-ファイル名：
+ファイル名：MainController.php  /  CustomerController.php
+？->bladeファイルに取得した値を埋め込みたくてもうまく行かない。(undefined)となってしまっている。
 
 ・ビュー
 作業：
@@ -49,3 +63,11 @@ http://laravel.local/index
 ・リクエスト（バリデーション）
 作業：入力値が適しているかのチェック。
 ファイル名：
+
+bladeファイル
+(detailについて)
+@for(データ件数分)
+    @foreach($customers as $customer)
+        {{ $customer->○○ }}
+    @endforeach
+@endfor
