@@ -4,7 +4,7 @@ use Faker\Generator as Faker;
 use App\Customer;
 
 
-//とりあえず入れない。
+//とりあえず入れない。コード打ってみただけ。
 $factory->define(Customer::class, function (Faker $faker) {
     return [
         'last_name' => $faker->lastName,
