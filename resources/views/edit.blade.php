@@ -1,6 +1,5 @@
 @extends('layout')
 
-
 @section('header')
     <header>
         <div class="navbar navbar-dark bg-dark shadow-sm">
@@ -49,16 +48,11 @@
                             <div class="col-md-3 mb-3">
                                 <label for="gender">性別 <span class="badge badge-danger">必須</span></label>
                                 <div class="col-sm-10 text-left">
-                                    <!-- ラジオボタンはそのままで、登録されている$customer->genderを当てはめたいが・・・
-                                        if使ってgender=1のとき、男にチェックみたいにできないだろうか。 -->
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="gender" value="1" checked>
-                                        <label class="form-check-label" for="inlineCheckbox1">男</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="gender" value="2">
-                                        <label class="form-check-label" for="inlineCheckbox2">女</label>
-                                    </div>
+                                    # ラジオボタンはそのままで、登録されている$customer->genderを当てはめたいが・・・三項演算子を使ってやると良い
+                                    # $customer->gender='男'? form1（男にチェック）を埋め込み:form2(女にチェック)を埋め込み;
+
+                                    {{$customer->gender}} == '男' ? @include('forms.gender-form1') : @include('forms.gender-form2') ;
+
                                 </div>
                             </div>
                         </div>
@@ -79,10 +73,10 @@
 
                         <div class="row">
                             <div class="col-md-2 mb-3">
+                                <!-- 三項演算子使って、selectedを使って初期値の指定をしておくと良い。 -->
                                 <label for="prefId">都道府県 <span class="badge badge-danger">必須</span></label>
                                 <select class="custom-select d-block w-100" name="pref_id" placeholder="東京都" value="{{ $customer->pref_id }}" required>
 
-                                    <option value=""></option>
                                     @foreach($prefs as $pref)
                                         <option value="{{ $pref->id }}">{{ $pref->name }}</option>
                                     @endforeach
@@ -101,6 +95,7 @@
                         <div class="row">
                             <div class="col-md-5 mb-3">
                                 <label for="building">建物名</label>
+                                <!--日付表記（カーボン使った表記にする。ハイフン表記にしないと反映されない）-->
                                 <input type="text" class="form-control" name="building" placeholder="Ｇスクエア渋谷道玄坂 4F" value="{{ $customer->building }}">
                             </div>
                         </div>

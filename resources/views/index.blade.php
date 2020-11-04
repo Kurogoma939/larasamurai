@@ -1,3 +1,4 @@
+
 @extends('layout')
 
 @section('header')
@@ -54,10 +55,9 @@
                                     <label for="prefId" class="col-sm-2 col-form-label">都道府県</label>
                                     <div class="col-sm-3">
                                         <select class="custom-select d-block" name="pref_id">
-                                            <option value=""></option>
 
-                                            @foreach($prefs as $pref)
-                                              <option value="{{ $pref->id }}">{{ $pref->name }}</option>
+                                            @foreach( {{$prefs}} as $pref)
+                                              <option value="{{ $pref }}">{{ $pref }}</option>
                                             @endforeach
 
                                         </select>
@@ -98,7 +98,7 @@
                             </tr>
                         </thead>
                         <tbody id="content">
-                            @foreach($customers as $customer)
+                            @foreach( $customers as $customer)
                                 <tr>
                                     <td scope="col">{{ $customer->id }}</td>
                                     <td scope="col"><a href="detail.html">{{ $customer->last_name }} {{ $customer->first_name }}</a></td>
@@ -115,6 +115,7 @@
                                     <td scope="col"><a class="btn btn-info" href="edit.html">編集</a></td>
                                 </tr>
                            @endforeach
+
                         </tbody>
                     </table>
                 </div>
@@ -130,5 +131,3 @@
         });
     </script>
 @endsection
-
-

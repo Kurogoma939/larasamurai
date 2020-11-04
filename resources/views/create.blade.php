@@ -77,11 +77,11 @@
                         <div class="col-md-2 mb-3">
                             <label for="prefId">都道府県 <span class="badge badge-danger">必須</span></label>
                             <select class="custom-select d-block w-100" name="pref_id" required>
-                                <option value=""></option>
-                                //
+
                                 @foreach($prefs as $pref)
                                     <option value="{{ $pref->id }}">{{ $pref->name }}</option>
                                 @endforeach>
+                                
                             </select>
                         </div>
                     </div>

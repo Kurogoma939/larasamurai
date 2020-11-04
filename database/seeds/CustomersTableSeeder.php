@@ -12,14 +12,16 @@ class CustomersTableSeeder extends Seeder
     public function run()
     {
 
-        $param = [
+
+        $customers = [
             'id' => '1',
             'last_name' => '武井',
             'first_name' => '壮',
             'last_kana' => 'たけい',
             'first_kana' => 'そう',
             'gender' => '1',
-            'birthday' => '1999/03/03',
+            'birthday' => '1999-03-03',
+            //日付については、1999-09-09のようにハイフン表記を使わないといけない。
             'post_code' => '390-1401',
             'pref_id' => '1',
             'address' => '長野県松本市波田5511-1',
@@ -27,10 +29,9 @@ class CustomersTableSeeder extends Seeder
             'mobile' => '080-1233-4456',
             'email' => 'kan.sss.939@gmail.com',
             'remarks' => '偽物の百獣の王です。',
-            'created_at' => '2020/10/15 21:12:34',
-            'updated_at' => '2020/10/16 21:11:11',
+
         ];
-        DB::table('customers')->insert($param);
+        DB::table('customers')->insert($customers);
 
     }
 

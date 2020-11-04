@@ -18,8 +18,7 @@
 //①CustomerControllerのルーティング
 
 //DBからリストの取得と、入力したデータのDBへの反映
-Route::get('index','CustomerController@getPrefList');
-Route::get('index','CustomerController@getCustomerfList');
+Route::get('index','CustomerController@getList');
 Route::post('index','CustomerController@postList');
 //検索した時のアクション。
 Route::get('detail','CustomerController@search');
@@ -27,7 +26,6 @@ Route::get('detail','CustomerController@search');
 //②MainControllerのルーティング
 
 //最初はシーダーにあるものを表記。
-Route::get('index','MainController@index');
 //新規登録した時のデータの取得と登録アクション
 Route::get('create','MainController@create');
 Route::post('create','MainController@store');

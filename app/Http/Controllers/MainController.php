@@ -11,12 +11,12 @@ use App\Customer;
 
 class MainController extends Controller
 {
-    //全体的にモデル表記じゃなくDB表記で書く！
+    //全体的にDB表記じゃなくモデル表記で書く！
 
     //初期として、今ある（シーダーで作ってある）データの表示
     public function index(Request $request)
     {
-       $lists = App\Customer::all();
+       $lists = Customer::all();
        return view('index', ['lists'=>$lists]);
 
     }
@@ -43,17 +43,14 @@ class MainController extends Controller
             'email' => $request->email,
             'remarks' => $request->rebark,
         ];
-        //取得したデータをモデルに入れ、その後再びビューを表示。
         Customer::insert($param);
         return redirect('index');
     }
 
     public function edit(Request $request)
     {
-        //DBで書いたらこんな感じになる。モデルとして書き直して修正。
-        $item = DB::table('customers')
-            ->where('id', $request->id)->first();
-        return view('edit', ['item'=>$item]);
+        $item = Customer::where('id',$request->id)->first();
+        return view('edit',['item'=>$item]);
     }
 
     public function updata(Request $request)
@@ -71,33 +68,27 @@ class MainController extends Controller
             'tel' => $request->tel,
             'mobile' => $request->mobile,
             'email' => $request->email,
-            'remarks' => $request->rebark,
+            'remarks' => $request->remarks,
         ];
-        //ここも修正が必要。モデル使って書き直し。
-        DB::table('customers')
-            ->where('id', $request->id)
-            ->update($param);
+        Customer::where('id', $request->id)->update($param);
         return redirect('index');
-
     }
 
     public function remove(Request $request)
     {
-        DB::table('customers')
-            ->where('id', $request->id)->delete();
+        Customer::where('id', $request->id)->delete();
         return redirect('index');
     }
 
     public function show(Request $request)
     {
-        $page = $request->page;
-        $items = DB::table('customers')
-            ->limit(10)
-            ->get();
-        return view('hello.show',['items'=>$items]);
+        $name = $request->name;
+        $item = Customer::where($request->name)->get();
+        return view('detail',['item' => $item]);
     }
 }
 
 
 //全体制御のコントローラー
 
+?>
