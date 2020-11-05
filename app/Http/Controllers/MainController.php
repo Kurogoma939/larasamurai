@@ -49,7 +49,7 @@ class MainController extends Controller
     }
 
     //編集画面
-    public function edit(Request $request)
+    public function edit(Request $request,$id)
     {
         $prefs = Pref::all();
         $customers = Customer::where('id', '=', $request['id'])->first();
