@@ -1,12 +1,10 @@
 @extends('layout')
 
-print_r($customers);
-
 @section('header')
     <header>
         <div class="navbar navbar-dark bg-dark shadow-sm">
             <div class="container d-flex justify-content-between">
-                <a href="index.html" class="navbar-brand d-flex align-items-center">
+                <a href="index" class="navbar-brand d-flex align-items-center">
                     <strong>顧客管理（編集）</strong>
                 </a>
             </div>
@@ -50,10 +48,14 @@ print_r($customers);
                             <div class="col-md-3 mb-3">
                                 <label for="gender">性別 <span class="badge badge-danger">必須</span></label>
                                 <div class="col-sm-10 text-left">
-                                    # ラジオボタンはそのままで、登録されている$customer->genderを当てはめたいが・・・三項演算子を使ってやると良い
-                                    # $customer->gender='男'? form1（男にチェック）を埋め込み:form2(女にチェック)を埋め込み;
 
-                                    {{$customers->gender}} == '男' ? @include('forms.gender-form1') : @include('forms.gender-form2') ;
+                                    @if({{ $customers->gender }}==0)
+                                        <input type="radio" value="0" checked="checked">男性
+                                        <input type="radio" value="1">女性
+                                    @else
+                                        <input type="radio" value="0" >男性
+                                        <input type="radio" value="1" checked="checked">女性
+                                    @endif
 
                                 </div>
                             </div>
@@ -75,7 +77,7 @@ print_r($customers);
 
                         <div class="row">
                             <div class="col-md-2 mb-3">
-                                <!-- 三項演算子使って、selectedを使って初期値の指定をしておくと良い。 -->
+
                                 <label for="prefId">都道府県 <span class="badge badge-danger">必須</span></label>
                                 <select class="custom-select d-block w-100" name="pref_id" placeholder="東京都" value="{{ $customers->pref_id }}" required>
 
@@ -97,7 +99,6 @@ print_r($customers);
                         <div class="row">
                             <div class="col-md-5 mb-3">
                                 <label for="building">建物名</label>
-                                //日付表記（カーボン使った表記にする。ハイフン表記にしないと反映されない)
                                 <input type="text" class="form-control" name="building" placeholder="Ｇスクエア渋谷道玄坂 4F" value="{{ $customers->building }}">
                             </div>
                         </div>
@@ -134,7 +135,7 @@ print_r($customers);
             </form>
             <hr class="mb-4">
             <div class="form-group">
-                <a  class="btn btn-secondary" href="index.html" style="width:150px">戻る</a>
+                <a  class="btn btn-secondary" href="index" style="width:150px">戻る</a>
                 <button id="complete" type="button" class="btn btn-info" style="width:150px"><i class="fas fa-database pr-1"></i> 更新</button>
             </div>
         </div>

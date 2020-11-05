@@ -31,7 +31,7 @@ Route::get('create','MainController@create');
 Route::post('create','MainController@store');
 
 //編集したときのアクション。取得と更新。
-Route::get('edit','MainController@edit');
+Route::get('edit/{id}','MainController@edit');
 Route::patch('edit','MainController@updata');
 
 

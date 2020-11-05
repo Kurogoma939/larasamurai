@@ -5,7 +5,7 @@
     <header>
         <div class="navbar navbar-dark bg-dark shadow-sm">
             <div class="container d-flex justify-content-between">
-                <a href="index.html" class="navbar-brand d-flex align-items-center">
+                <a href="index" class="navbar-brand d-flex align-items-center">
                     <strong>顧客管理</strong>
                 </a>
             </div>
@@ -23,7 +23,7 @@
                 </div>
 
                 <div style="margin-bottom:20px;">
-                    <form id="form" method="post" action="index.html">
+                    <form id="form" method="post" action="index">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row">
@@ -112,7 +112,7 @@
                                     <td scope="col">{{ $customer->email }}</td>
                                     <td scope="col">{{ $customer->created_at }}</td>
                                     <td scope="col">{{ $customer->updated_at }}</td>
-                                    <td scope="col"><a class="btn btn-info" href="edit">編集</a></td>
+                                    <td scope="col"><a class="btn btn-info" href="edit/{{ $customer->id }}">編集</a></td>
                                 </tr>
                            @endforeach
 
