@@ -56,8 +56,8 @@
                                     <div class="col-sm-3">
                                         <select class="custom-select d-block" name="pref_id">
 
-                                            @foreach( {{$prefs}} as $pref)
-                                              <option value="{{ $pref }}">{{ $pref }}</option>
+                                            @foreach($prefs as $pref)
+                                              <option value="{{ $pref->id }}">{{ $pref->name }}</option>
                                             @endforeach
 
                                         </select>

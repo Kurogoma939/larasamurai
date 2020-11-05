@@ -95,7 +95,7 @@
                         <div class="row">
                             <div class="col-md-5 mb-3">
                                 <label for="building">建物名</label>
-                                <!--日付表記（カーボン使った表記にする。ハイフン表記にしないと反映されない）-->
+                                //日付表記（カーボン使った表記にする。ハイフン表記にしないと反映されない)
                                 <input type="text" class="form-control" name="building" placeholder="Ｇスクエア渋谷道玄坂 4F" value="{{ $customer->building }}">
                             </div>
                         </div>
