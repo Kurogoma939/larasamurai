@@ -21,7 +21,8 @@ class CreateCustomersTable extends Migration
             $table->string('last_kana',255)->nullable(false)->comment('姓かな');
             $table->string('first_kana',255)->nullable(false)->comment('名かな');
             $table->integer('gender')->nullable(false)->unsigned()->comment('性別');
-            $table->datetime('birthday')->nullable(false)->comment('生年月日');
+            //日付ミューテッター使わないと行かん。日付はハイフン表記にしないといけない。
+            $table->datetime('birthday')->nullable(false)->format('Y-m-d')->comment('生年月日');
             $table->string('post_code',255)->nullable(false)->comment('郵便番号');
 
             $table->integer('pref_id')->unsigned()->nullable(false)->comment('都道府県ID');

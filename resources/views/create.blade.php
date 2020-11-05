@@ -77,10 +77,11 @@
                         <div class="col-md-2 mb-3">
                             <label for="prefId">都道府県 <span class="badge badge-danger">必須</span></label>
                             <select class="custom-select d-block w-100" name="pref_id" required>
-                                <option value=""></option>
+
                                 @foreach($prefs as $pref)
                                     <option value="{{ $pref->id }}">{{ $pref->name }}</option>
                                 @endforeach>
+                                
                             </select>
                         </div>
                     </div>
@@ -88,35 +89,35 @@
                     <div class="row">
                         <div class="col-md-5 mb-3">
                             <label for="address">住所 <span class="badge badge-danger">必須</span></label>
-                            <input type="text" class="form-control" name="address" placeholder="渋谷区道玄坂2丁目11-1" value="" required>
+                            <input type="text" class="form-control" name="address" placeholder="住所" value="" required>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-5 mb-3">
                             <label for="building">建物名</label>
-                            <input type="text" class="form-control" name="building" placeholder="Ｇスクエア渋谷道玄坂 4F" value="">
+                            <input type="text" class="form-control" name="building" placeholder="建物名" value="">
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-3 mb-3">
                             <label for="tel">電話番号 <span class="badge badge-danger">必須</span></label>
-                            <input type="tel" class="form-control" name="tel" placeholder="03-1234-5678" value="" required>
+                            <input type="tel" class="form-control" name="tel" placeholder="番号（自宅）" value="" required>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-3 mb-3">
                             <label for="mobile">携帯番号 <span class="badge badge-danger">必須</span></label>
-                            <input type="tel" class="form-control" name="mobile" placeholder="080-1234-5678" value="" required>
+                            <input type="tel" class="form-control" name="mobile" placeholder="番号（携帯）" value="" required>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-3 mb-3">
                             <label for="email">メールアドレス <span class="badge badge-danger">必須</span></label>
-                            <input type="email" class="form-control" name="email" placeholder="you@example.com" value="" required>
+                            <input type="email" class="form-control" name="email" placeholder="メールアドレス" value="" required>
                         </div>
                     </div>
 

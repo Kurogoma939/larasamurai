@@ -19,92 +19,92 @@
                 <div class="row">
                     <div class="col-md-3 mb-3">
                         <label for="lastName">姓</label>
-                        <input type="text" class="form-control" name="last_name" placeholder="姓" value="苗字" readonly>
+                        <input type="text" class="form-control" name="last_name" value="{{ $customer->last_name }}" readonly>
                     </div>
                     <div class="col-md-3 mb-3">
                         <label for="firstName">名</label>
-                        <input type="text" class="form-control" name="first_name" placeholder="名" value="名前" readonly>
+                        <input type="text" class="form-control" name="first_name"  value="{{ $customer->first_name }}" readonly>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-3 mb-3">
                         <label for="lastKana">姓かな</label>
-                        <input type="text" class="form-control" name="last_kana" placeholder="姓かな" value="みょうじ" readonly>
+                        <input type="text" class="form-control" name="last_kana" value="{{ $customer->last_kana }}" readonly>
                     </div>
                     <div class="col-md-3 mb-3">
                         <label for="firstKana">名かな</label>
-                        <input type="text" class="form-control" name="first_kana" placeholder="名かな" value="なまえ" readonly>
+                        <input type="text" class="form-control" name="first_kana" value="{{ $customer->first_kana }}" readonly>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-3 mb-3">
                         <label for="gender">性別</label>
-                        <input type="text" class="form-control" name="gender" value="男" readonly>
+                        <input type="text" class="form-control" name="gender" value="{{ $customer->gender }}" readonly>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-3 mb-3">
                         <label for="birthday">生年月日</label>
-                        <input type="date" class="form-control" name="birthday" placeholder="生年月日" value="1973-01-24" readonly>
+                        <input type="date" class="form-control" name="birthday" value="{{ $customer->gender }}" readonly>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-2 mb-3">
                         <label for="postCode">郵便番号</label>
-                        <input type="text" class="form-control" name="post_code" placeholder="郵便番号" value="123-4567" readonly>
+                        <input type="text" class="form-control" name="post_code" value="{{ $customer->post_code }}" readonly>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-2 mb-3">
                         <label for="prefId">都道府県</label>
-                        <input type="text" class="form-control" name="pref_id" value="青森県" readonly>
+                        <input type="text" class="form-control" name="pref_id" value="{{ $customer->pref_id }}" readonly>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-5 mb-3">
                         <label for="address">住所</label>
-                        <input type="text" class="form-control" name="address" placeholder="渋谷区道玄坂2丁目11-1" value="青森市長島一丁目1-1" readonly>
+                        <input type="text" class="form-control" name="address" value="{{ $customer->address }}" readonly>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-5 mb-3">
                         <label for="building">建物名</label>
-                        <input type="text" class="form-control" name="building" placeholder="Ｇスクエア渋谷道玄坂 4F" value="" readonly>
+                        <input type="text" class="form-control" name="building" value="{{ $customer->building }}" readonly>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-3 mb-3">
                         <label for="tel">電話番号</label>
-                        <input type="tel" class="form-control" name="tel" placeholder="03-1234-5678" value="03-1234-5678" readonly>
+                        <input type="tel" class="form-control" name="tel" value="{{ $customer->tel }}" readonly>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-3 mb-3">
                         <label for="mobile">携帯番号</label>
-                        <input type="tel" class="form-control" name="mobile" placeholder="080-1234-5678" value="080-1234-5678" readonly>
+                        <input type="tel" class="form-control" name="mobile" value="{{ $customer->mobile }}" readonly>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-3 mb-3">
                         <label for="email">メールアドレス</label>
-                        <input type="email" class="form-control" name="email" placeholder="you@example.com" value="bobtabo.buhibuhi@gmail.com" readonly>
+                        <input type="email" class="form-control" name="email" value="b{{ $customer->email }}" readonly>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-8 mb-3">
                         <label for="remarks">備考</label>
-                        <textarea class="form-control" aria-label="With textarea" name="remarks" readonly></textarea>
+                        <textarea class="form-control" aria-label="With textarea" name="remarks" value="{{ $customer->remark }}" readonly></textarea>
                     </div>
                 </div>
             </div>
