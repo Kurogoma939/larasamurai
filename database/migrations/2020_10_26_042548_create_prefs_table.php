@@ -16,8 +16,7 @@ class CreatePrefsTable extends Migration
         Schema::create('prefs', function (Blueprint $table) {
             $table->increments('id')->integer()->primarykey()->nullable(false)->unsigned()->comment('ID');
             $table->string('name',128)->nullabe(false)->comment('都道府県名');
-            $table->timestamp('created_at')->nullable(false)->default(DB::raw('CURRENT_TIMESTAMP'))->comment('作成日時');
-            $table->timestamp('updated_at')->nullable(false)->default(DB::raw('CURRENT_TIMESTAMP'))->comment('更新日時');
+            $table->timestamps();
         });
     }
 

@@ -21,7 +21,6 @@ class CreateCustomersTable extends Migration
             $table->string('last_kana',255)->nullable(false)->comment('姓かな');
             $table->string('first_kana',255)->nullable(false)->comment('名かな');
             $table->integer('gender')->nullable(false)->unsigned()->comment('性別');
-            //日付ミューテッター使わないと行かん。日付はハイフン表記にしないといけない。
             $table->datetime('birthday')->nullable(false)->format('Y-m-d')->comment('生年月日');
             $table->string('post_code',255)->nullable(false)->comment('郵便番号');
 
@@ -34,8 +33,7 @@ class CreateCustomersTable extends Migration
             $table->string('mobile',255)->nullable(false)->comment('携帯番号');
             $table->string('email',255)->unique('email')->nullable(false)->comment('メールアドレス');
             $table->text('remarks')->comment('備考');
-            $table->timestamp('created_at')->nullable(false)->default(DB::raw('CURRENT_TIMESTAMP'))->comment('作成日時');
-            $table->timestamp('updated_at')->nullable(false)->default(DB::raw('CURRENT_TIMESTAMP'))->comment('更新日時');
+            $table->timestamps();
         });
     }
 
