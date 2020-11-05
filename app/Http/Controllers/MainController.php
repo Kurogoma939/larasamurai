@@ -12,11 +12,10 @@ use App\Customer;
 class MainController extends Controller
 {
     //全体的にDB表記じゃなくモデル表記で書く！
-
     //初期として、今ある（シーダーで作ってある）データの表示
     public function index(Request $request)
     {
-       $lists = Customer::all();
+       $customers = Customer::all();
        return view('index', ['lists'=>$lists]);
 
     }
@@ -49,8 +48,8 @@ class MainController extends Controller
 
     public function edit(Request $request)
     {
-        $item = Customer::where('id',$request->id)->first();
-        return view('edit',['item'=>$item]);
+        $customers = Customer::where('id',$request->id)->first();
+        return view('edit',['customers'=>$customers]);
     }
 
     public function updata(Request $request)

@@ -13,7 +13,7 @@ class CustomerController extends Controller
     {
         $prefs = Pref::all();
         $customers = Customer::all();
-        return view('index', compact("customers","prefs"));
+        return view('index', compact('customers','prefs'));
         //渡すメソッドは１つにまとめる。まとめるために、->with,compact()がある。
     }
 
@@ -25,10 +25,9 @@ class CustomerController extends Controller
     }
 
     //検索した時に、データを引っ張ってきて表示するメソッド。
-    public function search(Request $request, Builder $query, array $params)
+    public function search(Request $request, Builder $query)
     {
         //検索条件が４つあるからfind使ったらだめ
-        //条件分岐して、〇〇にデータ入れられたらこれを検索して持って来るという処理にしないといけない。
 
         //受け取り
         $last_kana = $request->input('last_kana');
@@ -57,8 +56,8 @@ class CustomerController extends Controller
             $query->where('pref_id','like','%'.$pref_id.'%');
         }
 
-        $data = $query->orderBy('id','asc')->paginate(10);
-        return view('index')->with('data',$data);
+        $customers = $query->get()->orderBy('id','asc')->paginate(10);
+        return view('index')->with('customers',$customers);
 
     }
 }
