@@ -1,5 +1,7 @@
 @extends('layout')
 
+print_r($customers);
+
 @section('header')
     <header>
         <div class="navbar navbar-dark bg-dark shadow-sm">
@@ -25,22 +27,22 @@
                         <div class="row">
                             <div class="col-md-3 mb-3">
                                 <label for="lastName">姓 <span class="badge badge-danger">必須</span></label>
-                                <input type="text" class="form-control" name="last_name" placeholder="田中" value="{{ $customer->last_name }}" required>
+                                <input type="text" class="form-control" name="last_name" placeholder="田中" value="{{ $customers->last_name }}" required>
                             </div>
                             <div class="col-md-3 mb-3">
                                 <label for="firstName">名 <span class="badge badge-danger">必須</span></label>
-                                <input type="text" class="form-control" name="first_name" placeholder="太郎" value="{{ $customer->first_name }}" required>
+                                <input type="text" class="form-control" name="first_name" placeholder="太郎" value="{{ $customers->first_name }}" required>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-3 mb-3">
                                 <label for="lastKana">姓かな <span class="badge badge-danger">必須</span></label>
-                                <input type="text" class="form-control" name="last_kana" placeholder="たなか" value="{{ $customer->last_kana }}" required>
+                                <input type="text" class="form-control" name="last_kana" placeholder="たなか" value="{{ $customers->last_kana }}" required>
                             </div>
                             <div class="col-md-3 mb-3">
                                 <label for="firstKana">名かな <span class="badge badge-danger">必須</span></label>
-                                <input type="text" class="form-control" name="first_kana" placeholder="たろう" value="{{ $customer->first_kana }}" required>
+                                <input type="text" class="form-control" name="first_kana" placeholder="たろう" value="{{ $customers->first_kana }}" required>
                             </div>
                         </div>
 
@@ -51,7 +53,7 @@
                                     # ラジオボタンはそのままで、登録されている$customer->genderを当てはめたいが・・・三項演算子を使ってやると良い
                                     # $customer->gender='男'? form1（男にチェック）を埋め込み:form2(女にチェック)を埋め込み;
 
-                                    {{$customer->gender}} == '男' ? @include('forms.gender-form1') : @include('forms.gender-form2') ;
+                                    {{$customers->gender}} == '男' ? @include('forms.gender-form1') : @include('forms.gender-form2') ;
 
                                 </div>
                             </div>
@@ -60,14 +62,14 @@
                         <div class="row">
                             <div class="col-md-3 mb-3">
                                 <label for="birthday">生年月日 <span class="badge badge-danger">必須</span></label>
-                                <input type="date" class="form-control" name="birthday" placeholder="2000/01/01" value="{{ $customer->birthday }}" required>
+                                <input type="date" class="form-control" name="birthday" placeholder="2000/01/01" value="{{ $customers->birthday }}" required>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-2 mb-3">
                                 <label for="postCode">郵便番号 <span class="badge badge-danger">必須</span></label>
-                                <input type="text" class="form-control" name="post_code" placeholder="123-4567" value="{{ $customer->post_code }}" required>
+                                <input type="text" class="form-control" name="post_code" placeholder="123-4567" value="{{ $customers->post_code }}" required>
                             </div>
                         </div>
 
@@ -75,7 +77,7 @@
                             <div class="col-md-2 mb-3">
                                 <!-- 三項演算子使って、selectedを使って初期値の指定をしておくと良い。 -->
                                 <label for="prefId">都道府県 <span class="badge badge-danger">必須</span></label>
-                                <select class="custom-select d-block w-100" name="pref_id" placeholder="東京都" value="{{ $customer->pref_id }}" required>
+                                <select class="custom-select d-block w-100" name="pref_id" placeholder="東京都" value="{{ $customers->pref_id }}" required>
 
                                     @foreach($prefs as $pref)
                                         <option value="{{ $pref->id }}">{{ $pref->name }}</option>
@@ -88,7 +90,7 @@
                         <div class="row">
                             <div class="col-md-5 mb-3">
                                 <label for="address">住所 <span class="badge badge-danger">必須</span></label>
-                                <input type="text" class="form-control" name="address" placeholder="渋谷区道玄坂2丁目11-1" value="{{ $customer->address }}" required>
+                                <input type="text" class="form-control" name="address" placeholder="渋谷区道玄坂2丁目11-1" value="{{ $customers->address }}" required>
                             </div>
                         </div>
 
@@ -96,35 +98,35 @@
                             <div class="col-md-5 mb-3">
                                 <label for="building">建物名</label>
                                 //日付表記（カーボン使った表記にする。ハイフン表記にしないと反映されない)
-                                <input type="text" class="form-control" name="building" placeholder="Ｇスクエア渋谷道玄坂 4F" value="{{ $customer->building }}">
+                                <input type="text" class="form-control" name="building" placeholder="Ｇスクエア渋谷道玄坂 4F" value="{{ $customers->building }}">
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-3 mb-3">
                                 <label for="tel">電話番号 <span class="badge badge-danger">必須</span></label>
-                                <input type="tel" class="form-control" name="tel" placeholder="03-1234-5678" value="{{ $customer->tel }}" required>
+                                <input type="tel" class="form-control" name="tel" placeholder="03-1234-5678" value="{{ $customers->tel }}" required>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-3 mb-3">
                                 <label for="mobile">携帯番号 <span class="badge badge-danger">必須</span></label>
-                                <input type="tel" class="form-control" name="mobile" placeholder="080-1234-5678" value="{{ $customer->mobile }}" required>
+                                <input type="tel" class="form-control" name="mobile" placeholder="080-1234-5678" value="{{ $customers->mobile }}" required>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-3 mb-3">
                                 <label for="email">メールアドレス <span class="badge badge-danger">必須</span></label>
-                                <input type="email" class="form-control" name="email" placeholder="you@example.com" value="{{ $customer->email }}" required>
+                                <input type="email" class="form-control" name="email" placeholder="you@example.com" value="{{ $customers->email }}" required>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-8 mb-3">
                                 <label for="remarks">備考</label>
-                                <textarea class="form-control" aria-label="With textarea" name="remarks" value="{{ $customer->remark }}"></textarea>
+                                <textarea class="form-control" aria-label="With textarea" name="remarks" value="{{ $customers->remark }}"></textarea>
                             </div>
                         </div>
                 </div>

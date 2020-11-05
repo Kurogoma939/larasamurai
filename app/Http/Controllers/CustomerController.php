@@ -9,7 +9,7 @@ use App\Pref;
 class CustomerController extends Controller
 {
 
-    public function getlist()
+    public function getList()
     {
         $prefs = Pref::all();
         $customers = Customer::all();
@@ -20,9 +20,11 @@ class CustomerController extends Controller
     //ここでデータの保存
     public function postList(Request $request)
     {
-        $customers = Customer::insert();
-        return view('index',['customers' => $customers]);
+        $customers = $request['custemer'];
+        Customer::insert(['customers' => $customers]);
+        return view('index');
     }
+
 
     //検索した時に、データを引っ張ってきて表示するメソッド。
     public function search(Request $request, Builder $query)

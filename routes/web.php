@@ -29,9 +29,13 @@ Route::get('detail','CustomerController@search');
 //新規登録した時のデータの取得と登録アクション
 Route::get('create','MainController@create');
 Route::post('create','MainController@store');
+
 //編集したときのアクション。取得と更新。
 Route::get('edit','MainController@edit');
 Route::patch('edit','MainController@updata');
+
+
+
 //選択したデータの詳細表示と削除
 Route::get('detail','MainController@show');
 Route::delete('detail/{id}','MainController@remove');

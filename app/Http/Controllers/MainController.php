@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\CustomerController;
 use App\Customer;
+use App\Pref;
 
 
 
@@ -16,13 +17,14 @@ class MainController extends Controller
     public function index(Request $request)
     {
        $customers = Customer::all();
-       return view('index', ['lists'=>$lists]);
-
+       return view('index', compact('customers'));
     }
 
     public function create(Request $request)
     {
-        return view('index');
+        $prefs = Pref::all();
+        $customers = Customer::all();
+        return view('create', compact('customers','prefs'));
     }
 
     public function store(Request $request)
@@ -46,15 +48,17 @@ class MainController extends Controller
         return redirect('index');
     }
 
+    //編集画面
     public function edit(Request $request)
     {
-        $customers = Customer::where('id',$request->id)->first();
-        return view('edit',['customers'=>$customers]);
+        $prefs = Pref::all();
+        $customers = Customer::where('id', '=', $request['id'])->first();
+        return view('edit',compact('customers','prefs'));
     }
 
     public function updata(Request $request)
     {
-        $param = [
+        $customers = [
             'last_name' => $request->first_name,
             'first_name' => $request->first_name,
             'last_kana' => $request->last_kana,
@@ -69,7 +73,7 @@ class MainController extends Controller
             'email' => $request->email,
             'remarks' => $request->remarks,
         ];
-        Customer::where('id', $request->id)->update($param);
+        Customer::where('id', $request->id)->updata($customers);
         return redirect('index');
     }
 
@@ -82,8 +86,8 @@ class MainController extends Controller
     public function show(Request $request)
     {
         $name = $request->name;
-        $item = Customer::where($request->name)->get();
-        return view('detail',['item' => $item]);
+        $customers = Customer::where($request->name)->get();
+        return view('detail',['customers' => $customers]);
     }
 }
 

@@ -74,7 +74,7 @@
                         【メッセージサンプル】該当データが見つかりません。
                     </div>
                     <div class="form-group row">
-                        <a  class="btn btn-success" href="create.html" style="width:150px"><i class="fas fa-chalkboard-teacher pr-1"></i> 新規登録</a>
+                        <a  class="btn btn-success" href="create" style="width:150px"><i class="fas fa-chalkboard-teacher pr-1"></i> 新規登録</a>
                     </div>
                 </div>
 
@@ -98,10 +98,10 @@
                             </tr>
                         </thead>
                         <tbody id="content">
-                            @foreach( $customers as $customer)
+                            @foreach( $customers as $customer )
                                 <tr>
                                     <td scope="col">{{ $customer->id }}</td>
-                                    <td scope="col"><a href="detail.html">{{ $customer->last_name }} {{ $customer->first_name }}</a></td>
+                                    <td scope="col"><a href="detail">{{ $customer->last_name }} {{ $customer->first_name }}</a></td>
                                     <td scope="col">{{ $customer->last_kana }} {{ $customer->first_kana }}</td>
                                     <td scope="col">{{ $customer->gender }}</td>
                                     <td scope="col">{{ $customer->birthday }}</td>
@@ -112,7 +112,7 @@
                                     <td scope="col">{{ $customer->email }}</td>
                                     <td scope="col">{{ $customer->created_at }}</td>
                                     <td scope="col">{{ $customer->updated_at }}</td>
-                                    <td scope="col"><a class="btn btn-info" href="edit.html">編集</a></td>
+                                    <td scope="col"><a class="btn btn-info" href="edit">編集</a></td>
                                 </tr>
                            @endforeach
 
