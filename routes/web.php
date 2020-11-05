@@ -34,6 +34,8 @@ Route::post('create','MainController@store');
 Route::get('edit','MainController@edit');
 Route::patch('edit','MainController@updata');
 
+
+
 //選択したデータの詳細表示と削除
 Route::get('detail','MainController@show');
 Route::delete('detail/{id}','MainController@remove');

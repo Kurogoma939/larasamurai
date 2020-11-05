@@ -48,10 +48,12 @@ class MainController extends Controller
         return redirect('index');
     }
 
+    //編集画面
     public function edit(Request $request)
     {
-        $customers = Customer::where('id',$request->id)->first();
-        return view('edit',compact('customers'));
+        $prefs = Pref::all();
+        $customers = Customer::where('id', '=', $request['id'])->first();
+        return view('edit',compact('customers','prefs'));
     }
 
     public function updata(Request $request)

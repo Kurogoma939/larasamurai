@@ -1,5 +1,7 @@
 @extends('layout')
 
+print_r($customers);
+
 @section('header')
     <header>
         <div class="navbar navbar-dark bg-dark shadow-sm">
@@ -21,7 +23,7 @@
 
             <form id="form" method="post" action="index.html">
                 <div class="col-md-8 order-md-1">
-                    if(isset($customers)){
+
                         <div class="row">
                             <div class="col-md-3 mb-3">
                                 <label for="lastName">姓 <span class="badge badge-danger">必須</span></label>
@@ -127,7 +129,6 @@
                                 <textarea class="form-control" aria-label="With textarea" name="remarks" value="{{ $customers->remark }}"></textarea>
                             </div>
                         </div>
-                    }
                 </div>
 
             </form>
