@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\CustomerRequest;
 use Illuminate\Http\Response;
 use App\Http\Controllers\CustomerController;
 use App\Customer;
@@ -27,26 +28,26 @@ class MainController extends Controller
         return view('create', compact('customers','prefs'));
     }
 
-    public function store(Request $request)
+    public function store(CustomerRequest $request)
     {
-        $param = [
-            'last_name' => $request->first_name,
-            'first_name' => $request->first_name,
-            'last_kana' => $request->last_kana,
-            'first_kana' => $request->first_kana,
-            'gender' => $request->gender,
-            'birthday' => $request->birthday,
-            'post_code' => $request->post_code,
-            'pref_id' => $request->pref_id,
-            'address' => $request->address,
-            'tel' => $request->tel,
-            'mobile' => $request->mobile,
-            'email' => $request->email,
-            'remarks' => $request->rebark,
-        ];
-        Customer::insert($param);
-        return redirect('index');
+            $last_name = $request->input('last_name');
+            $first_name = $request->input('first_name');
+            $ast_kana = $request->input('last_kana');
+            $first_kana = $request->input('first_kana');
+            $gender = $request->input('gender');
+            $birthday = $request->input('birthday');
+            $post_code = $request->input('post_code');
+            $pref_id = $request->input('pref_id');
+            $address = $request->input('address');
+            $tel = $request->input('tel');
+            $mobile = $request->input('mobile');
+            $remarks = $request->input('remarks');
+
+            Customer::create($request->all());
+
+            return redirect('index');
     }
+
 
     //編集画面
     public function edit(Request $request,$id)
@@ -58,8 +59,9 @@ class MainController extends Controller
 
     public function updata(Request $request)
     {
+
         $customers = [
-            'last_name' => $request->first_name,
+            'last_name' => $request->last_name,
             'first_name' => $request->first_name,
             'last_kana' => $request->last_kana,
             'first_kana' => $request->first_kana,
@@ -73,10 +75,13 @@ class MainController extends Controller
             'email' => $request->email,
             'remarks' => $request->remarks,
         ];
+
         Customer::where('id', $request->id)->updata($customers);
+
         return redirect('index');
     }
 
+    //詳細削除　
     public function remove(Request $request)
     {
         Customer::where('id', $request->id)->delete();

@@ -16,10 +16,11 @@
     <main role="main">
         <div class="container-fluid" style="margin-top: 50px; padding-left: 100px;padding-right: 100px;">
             <div class="alert alert-danger" role="alert">
-                【メッセージサンプル】エラーです。
+                【メッセージサンプル】
             </div>
 
-            <form id="form" method="post" action="index.html">
+            <form id="form" method="post" action="index">
+                @csrf
                 <div class="col-md-8 order-md-1">
 
                         <div class="row">
@@ -49,13 +50,27 @@
                                 <label for="gender">性別 <span class="badge badge-danger">必須</span></label>
                                 <div class="col-sm-10 text-left">
 
-                                    @if({{ $customers->gender }}==0)
-                                        <input type="radio" value="0" checked="checked">男性
-                                        <input type="radio" value="1">女性
+                                    @if( $customers->gender == 1)
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="gender" value="1" checked >
+                                            <label class="form-check-label" for="inlineCheckbox1">男</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="gender" value="2">
+                                            <label class="form-check-label" for="inlineCheckbox2">女</label>
+                                        </div>
                                     @else
-                                        <input type="radio" value="0" >男性
-                                        <input type="radio" value="1" checked="checked">女性
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="gender" value="1">
+                                            <label class="form-check-label" for="inlineCheckbox1">男</label>
+                                        </div>
+                                         <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="gender" value="2" checked>
+                                            <label class="form-check-label" for="inlineCheckbox2">女</label>
+                                         </div>
                                     @endif
+
+
 
                                 </div>
                             </div>

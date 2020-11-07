@@ -126,7 +126,7 @@
         $("#complete").click(function() {
             completeConfirm(function(result){
                 if (result) {
-                    location.replace("index.html");
+                    location.replace("index");
                 }
             });
         });

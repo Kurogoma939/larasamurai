@@ -23,9 +23,8 @@ class CustomerController extends Controller
         $customers = $request['custemer'];
         Customer::insert(['customers' => $customers]);
         return view('index');
+
     }
-
-
     //検索した時に、データを引っ張ってきて表示するメソッド。
     public function search(Request $request, Builder $query)
     {

@@ -33,6 +33,26 @@ class CustomersTableSeeder extends Seeder
         ];
         DB::table('customers')->insert($customers);
 
+        $customers = [
+            'id' => '2',
+            'last_name' => '奥原',
+            'first_name' => '優子',
+            'last_kana' => 'おくはら',
+            'first_kana' => 'ゆうこ',
+            'gender' => '2',
+            'birthday' => '1989-12-30',
+            //日付については、1999-09-09のようにハイフン表記を使わないといけない。
+            'post_code' => '143-5678',
+            'pref_id' => '24',
+            'address' => '三重県津市山手234-23',
+            'tel' => '06-2345-3456',
+            'mobile' => '090-9876-5432',
+            'email' => 'yuko.oku@gmail.com',
+            'remarks' => '一般女性です。',
+
+        ];
+        DB::table('customers')->insert($customers);
+
     }
 
     /*

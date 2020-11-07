@@ -19,11 +19,12 @@
         <div class="container-fluid" style="padding-left: 50px;padding-right: 50px;">
             <div class="py-5 text-center">
                 <div class="alert alert-success" role="alert">
-                    【メッセージサンプル】登録しました。
+                    【メッセージサンプル】
                 </div>
 
                 <div style="margin-bottom:20px;">
                     <form id="form" method="post" action="index">
+                        @csrf
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row">
@@ -71,7 +72,7 @@
                         <button type="button" id="search" class="btn btn-primary" style="width:150px"><i class="fas fa-search pr-1"></i> 検索</button>
                     </div>
                     <div class="alert alert-warning" role="alert">
-                        【メッセージサンプル】該当データが見つかりません。
+                        【メッセージサンプル】
                     </div>
                     <div class="form-group row">
                         <a  class="btn btn-success" href="create" style="width:150px"><i class="fas fa-chalkboard-teacher pr-1"></i> 新規登録</a>
