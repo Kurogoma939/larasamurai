@@ -15,7 +15,7 @@ class CreateCustomersTable extends Migration
     public function up()
     {
         Schema::create('customers', function (Blueprint $table) {
-            $table->biginteger('id')->primarykey()->increments()->nullable(true)->unsigned()->comment('ID');
+            $table->biginteger('id')->primarykey()->autoIncrement()->nullable(false)->unsigned()->comment('ID');
             $table->string('last_name',255)->nullable(false)->comment('姓');
             $table->string('first_name',255)->nullable(false)->comment('名');
             $table->string('last_kana',255)->nullable(false)->comment('姓かな');
@@ -31,7 +31,7 @@ class CreateCustomersTable extends Migration
             $table->string('building',255)->nullable(true)->comment('建物名');
             $table->string('tel',255)->nullable(false)->comment('電話番号');
             $table->string('mobile',255)->nullable(false)->comment('携帯番号');
-            $table->string('email',255)->unique('email')->nullable(false)->comment('メールアドレス');
+            $table->string('email',255)->nullable(false)->comment('メールアドレス');
             $table->text('remarks')->nullable(true)->comment('備考');
             $table->timestamps();
         });

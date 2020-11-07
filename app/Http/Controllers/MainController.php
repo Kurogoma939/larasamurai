@@ -46,7 +46,7 @@ class MainController extends Controller
             $customer->email = $request->input('email');
             $customer->remarks = $request->input('remarks');
 
-            $custoemr->save();
+            Customer::create($request->all());
 
             return redirect('index');
     }
@@ -62,39 +62,39 @@ class MainController extends Controller
 
     public function updata(Request $request)
     {
-        $customers = [
-            'last_name' => $request->last_name,
-            'first_name' => $request->first_name,
-            'last_kana' => $request->last_kana,
-            'first_kana' => $request->first_kana,
-            'gender' => $request->gender,
-            'birthday' => $request->birthday,
-            'post_code' => $request->post_code,
-            'pref_id' => $request->pref_id,
-            'address' => $request->address,
-            'tel' => $request->tel,
-            'mobile' => $request->mobile,
-            'email' => $request->email,
-            'remarks' => $request->remarks,
-        ];
+        $customer = Customer::find($request->id);
+        $customer->last_name = $request->last_name;
+        $customer->first_name = $request->first_name;
+        $customer->last_kana = $request->last_kana;
+        $customer->first_kana = $request->first_kana;
+        $customer->gender = $request->gender;
+        $customer->birthday = $request->birthday;
+        $customer->post_code = $request->post_code;
+        $customer->pref_id = $request->pref_id;
+        $customer->address = $request->address;
+        $customer->tel = $request->tel;
+        $customer->mobile = $request->mobile;
+        $customer->email = $request->email;
+        $customer->remarks = $request->remarks;
 
-        Customer::where('id', $request->id)->updata($customers);
+        $customer->save();
+        return redirect('/index');
 
-        return redirect('index');
     }
 
     //詳細削除　
-    public function remove(Request $request)
-    {
-        Customer::where('id', $request->id)->delete();
-        return redirect('index');
-    }
-
     public function show(Request $request)
     {
-        $name = $request->name;
-        $customers = Customer::where($request->name)->get();
-        return view('detail',['customers' => $customers]);
+        $prefs = Pref::all();
+        $customers = Customer::where('id', '=', $request['id'])->first();
+        return view('detail',compact('customers','prefs'));
+    }
+
+    public function remove(Request $request)
+    {
+        $customer = Customer::find($request->id);
+        $customer->delete();
+        return redirect('/index');;
     }
 }
 

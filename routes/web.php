@@ -21,7 +21,7 @@
 Route::get('index','CustomerController@getList');
 Route::post('index','CustomerController@postList');
 //検索した時のアクション。
-Route::get('detail','CustomerController@search');
+//Route::get('detail','CustomerController@search');
 
 //②MainControllerのルーティング
 
@@ -37,7 +37,7 @@ Route::put('edit','MainController@updata');
 
 
 //選択したデータの詳細表示と削除
-Route::get('detail','MainController@show');
-Route::delete('detail/{id}','MainController@remove');
+Route::get('detail/{id}','MainController@show');
+Route::delete('detail','MainController@remove');
 
 
