@@ -1,4 +1,14 @@
 メモ
+⭕️困っているところ、やるべきこと
+createで送る時、エラーが出てしまう。↓
+SQLSTATE[42S22]: Column not found: 1054 Unknown column 'customers' in 'field list' (SQL: insert into `customers` (`customers`) values ())
+customersテーブルにcustomersってカラムを送ろうとしていると分かったが、どこでやってるものなのか・・・。
+
+⭕️都道府県と性別が数字になってしまっている。文字で出したい。
+⭕️誕生日のカーボン表記をしたい　今、y-m-d 00:00:00と出てしまっている。
+⭕️/editから/indexにリダイレクトしたいのに、/edit/indexというURLに飛んでしまう。
+
+
 
 ⭐️マイグレーション（完了）
 作業テーブル定義とかする。作成（up) と削除(delete) 時の設定をしておく。：
@@ -16,7 +26,7 @@ php artisan migrateがエラー起きてる。database.phpファイルを修正�
 作業：チェック用ダミーデータの作成
 ファイル名：php artisan make:seeder CustomersTableSeeder -> CustomersTableSeeder.php
 php artisan db:seed（実行）
-※一回シーディングしたあと、追加で入れたい場合は最初のやつ含めるとエラーになるので、２回目以降は追加分のみいれる。
+※php artisan migrate:fresh --seedで実行する
 ※主キー、副キーを設定した場合、副キーファイルをしっかりと作っておかないとエラーでる。
 
 
@@ -25,7 +35,6 @@ php artisan db:seed（実行）
 ファイル名：web.php
 Route::アクション('パスの指定/index',コントローラーファイル（処理内容)）
 →このパスに行けばこの処理をさせるという感じ。
-→最後にやるべきか？
 
 ・コントローラー
 作業：全体の制御。モデルがとってきたDBファイルをViewに反映させたりする。
@@ -43,6 +52,7 @@ Route::アクション('パスの指定/index',コントローラーファイル
 そのために、with,compactが存在している。
 
 {{ csrf }}付けないとポストする画面で送信されない。全てのポストする画面で必要となる。
+@csrf
 
 
 (見本)
@@ -59,11 +69,6 @@ foreach ($flights as $flight) {
 php artisan serveした後に
 http://laravel.local（ルート先パス）でみれる！！
 http://laravel.local/index
-
-⭕️パーシャル化を使ってリストを作る！別途form.blade.phpファイル必要なのか？
-https://laravel10.wordpress.com/2015/03/15/%E5%88%9D%E3%82%81%E3%81%A6%E3%81%AElaravel-5-20-view-partial/
-⭕️@include使ってリストをテンプレートとして受け渡したい。
-　->@includeは別のビューを埋め込むみたいなのでリストの使い回しはパーシャルかも。
 
 
 
