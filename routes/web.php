@@ -32,7 +32,7 @@ Route::post('create','MainController@store');
 
 //編集したときのアクション。取得と更新。
 Route::get('edit/{id}','MainController@edit');
-Route::patch('edit','MainController@updata');
+Route::put('edit','MainController@updata');
 
 
 

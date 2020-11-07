@@ -16,10 +16,11 @@
     <main role="main">
         <div class="container-fluid" style="margin-top: 50px; padding-left: 100px;padding-right: 100px;">
             <div class="alert alert-danger" role="alert">
-                【メッセージサンプル】エラーです。
+                【メッセージサンプル】
             </div>
 
-            <form id="form" method="post" action="index.html">
+            <form id="form" method="post" action="index">
+                @csrf
                 <div class="col-md-8 order-md-1">
                     <div class="row">
                         <div class="col-md-3 mb-3">
