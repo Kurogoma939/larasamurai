@@ -19,8 +19,8 @@
                 【メッセージサンプル】
             </div>
 
-            <form id="form" method="post" action="index">
-                @csrf
+            <form id="form" method="post" action="/index">
+                {{ csrf_field() }}
                 <div class="col-md-8 order-md-1">
 
                         <div class="row">

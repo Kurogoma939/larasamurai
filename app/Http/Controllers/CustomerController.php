@@ -20,8 +20,21 @@ class CustomerController extends Controller
     //ここでデータの保存
     public function postList(Request $request)
     {
-        $customers = $request['custemer'];
-        Customer::insert(['customers' => $customers]);
+        $last_name = $request->input('last_name');
+        $first_name = $request->input('first_name');
+        $last_kana = $request->input('last_kana');
+        $first_kana = $request->input('first_kana');
+        $gender = $request->input('gender');
+        $birthday = $request->input('birthday');
+        $post_code = $request->input('post_code');
+        $pref_id = $request->input('pref_id');
+        $address = $request->input('address');
+        $tel = $request->input('tel');
+        $mobile = $request->input('mobile');
+        $email = $request->input('email');
+        $remarks = $request->input('remarks');
+
+        Customer::create($request->except(['_token']));
         return view('index');
 
     }

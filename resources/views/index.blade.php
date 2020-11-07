@@ -107,7 +107,7 @@
                                     <td scope="col">{{ $customer->gender }}</td>
                                     <td scope="col">{{ $customer->birthday }}</td>
                                     <td scope="col">{{ $customer->post_code }}</td>
-                                    <td scope="col">{{ $customer->pref_id }}</td>
+                                    <td scope="col">{{ $customer->prefectures }}</td>
                                     <td scope="col">{{ $customer->tel }}</td>
                                     <td scope="col">{{ $customer->mobile }}</td>
                                     <td scope="col">{{ $customer->email }}</td>

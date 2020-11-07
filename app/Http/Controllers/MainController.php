@@ -30,20 +30,23 @@ class MainController extends Controller
 
     public function store(CustomerRequest $request)
     {
-            $last_name = $request->input('last_name');
-            $first_name = $request->input('first_name');
-            $ast_kana = $request->input('last_kana');
-            $first_kana = $request->input('first_kana');
-            $gender = $request->input('gender');
-            $birthday = $request->input('birthday');
-            $post_code = $request->input('post_code');
-            $pref_id = $request->input('pref_id');
-            $address = $request->input('address');
-            $tel = $request->input('tel');
-            $mobile = $request->input('mobile');
-            $remarks = $request->input('remarks');
+            $customer = new Customer();
 
-            Customer::create($request->all());
+            $customer->last_name = $request->input('last_name');
+            $customer->first_name = $request->input('first_name');
+            $customer->last_kana = $request->input('last_kana');
+            $customer->first_kana = $request->input('first_kana');
+            $customer->gender = $request->input('gender');
+            $customer->birthday = $request->input('birthday');
+            $customer->post_code = $request->input('post_code');
+            $customer->pref_id = $request->input('pref_id');
+            $customer->address = $request->input('address');
+            $customer->tel = $request->input('tel');
+            $customer->mobile = $request->input('mobile');
+            $customer->email = $request->input('email');
+            $customer->remarks = $request->input('remarks');
+
+            $custoemr->save();
 
             return redirect('index');
     }
@@ -59,7 +62,6 @@ class MainController extends Controller
 
     public function updata(Request $request)
     {
-
         $customers = [
             'last_name' => $request->last_name,
             'first_name' => $request->first_name,
