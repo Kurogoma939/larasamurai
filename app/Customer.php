@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use App\Pref;
-use App\Carbon;
+use Carbon\Carbon;
 
 class Customer extends Model
 {
@@ -14,7 +14,9 @@ class Customer extends Model
     protected $table = 'customers';
 
     //今はこれでいいけど、現実だと数が多すぎる。だから実際は$guardedで変更不可なものだけ指定。
+    //$guardedに直そうかな・・・
     protected $fillable = [
+        'id',
         'last_name',
         'first_name',
         'last_kana',
@@ -37,7 +39,7 @@ class Customer extends Model
     }
 
     /**
-    * 都道府県を取得
+    * 都道府県の名前を取得
     *
     * @param string $value
     * @return string
@@ -49,7 +51,7 @@ class Customer extends Model
     }
 
     /**
-    * 誕生日を取得
+    * 誕生日のカーボン表記
     *
     * @param string $value
     * @return string
@@ -61,9 +63,10 @@ class Customer extends Model
 
     return $carbon->format('Y/m/d');
 
+    }
+    
 }
 
-}
 
 
 

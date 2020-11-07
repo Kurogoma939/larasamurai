@@ -19,92 +19,92 @@
                 <div class="row">
                     <div class="col-md-3 mb-3">
                         <label for="lastName">姓</label>
-                        <input type="text" class="form-control" name="last_name" value="{{ $customer->last_name }}" readonly>
+                        <input type="text" class="form-control" name="last_name" value="{{ $customers->last_name }}" readonly>
                     </div>
                     <div class="col-md-3 mb-3">
                         <label for="firstName">名</label>
-                        <input type="text" class="form-control" name="first_name"  value="{{ $customer->first_name }}" readonly>
+                        <input type="text" class="form-control" name="first_name"  value="{{ $customers->first_name }}" readonly>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-3 mb-3">
                         <label for="lastKana">姓かな</label>
-                        <input type="text" class="form-control" name="last_kana" value="{{ $customer->last_kana }}" readonly>
+                        <input type="text" class="form-control" name="last_kana" value="{{ $customers->last_kana }}" readonly>
                     </div>
                     <div class="col-md-3 mb-3">
                         <label for="firstKana">名かな</label>
-                        <input type="text" class="form-control" name="first_kana" value="{{ $customer->first_kana }}" readonly>
+                        <input type="text" class="form-control" name="first_kana" value="{{ $customers->first_kana }}" readonly>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-3 mb-3">
                         <label for="gender">性別</label>
-                        <input type="text" class="form-control" name="gender" value="{{ $customer->gender }}" readonly>
+                        <input type="text" class="form-control" name="gender" value="{{ $customers->gender }}" readonly>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-3 mb-3">
                         <label for="birthday">生年月日</label>
-                        <input type="date" class="form-control" name="birthday" value="{{ $customer->gender }}" readonly>
+                        <input type="date" class="form-control" name="birthday" value="{{ $customers->birthday }}" readonly>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-2 mb-3">
                         <label for="postCode">郵便番号</label>
-                        <input type="text" class="form-control" name="post_code" value="{{ $customer->post_code }}" readonly>
+                        <input type="text" class="form-control" name="post_code" value="{{ $customers->post_code }}" readonly>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-2 mb-3">
                         <label for="prefId">都道府県</label>
-                        <input type="text" class="form-control" name="pref_id" value="{{ $customer->pref_id }}" readonly>
+                        <input type="text" class="form-control" name="pref_id" value="{{ $customers->prefectures }}" readonly>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-5 mb-3">
                         <label for="address">住所</label>
-                        <input type="text" class="form-control" name="address" value="{{ $customer->address }}" readonly>
+                        <input type="text" class="form-control" name="address" value="{{ $customers->address }}" readonly>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-5 mb-3">
                         <label for="building">建物名</label>
-                        <input type="text" class="form-control" name="building" value="{{ $customer->building }}" readonly>
+                        <input type="text" class="form-control" name="building" value="{{ $customers->building }}" readonly>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-3 mb-3">
                         <label for="tel">電話番号</label>
-                        <input type="tel" class="form-control" name="tel" value="{{ $customer->tel }}" readonly>
+                        <input type="tel" class="form-control" name="tel" value="{{ $customers->tel }}" readonly>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-3 mb-3">
                         <label for="mobile">携帯番号</label>
-                        <input type="tel" class="form-control" name="mobile" value="{{ $customer->mobile }}" readonly>
+                        <input type="tel" class="form-control" name="mobile" value="{{ $customers->mobile }}" readonly>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-3 mb-3">
                         <label for="email">メールアドレス</label>
-                        <input type="email" class="form-control" name="email" value="b{{ $customer->email }}" readonly>
+                        <input type="email" class="form-control" name="email" value="b{{ $customers->email }}" readonly>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-8 mb-3">
                         <label for="remarks">備考</label>
-                        <textarea class="form-control" aria-label="With textarea" name="remarks" value="{{ $customer->remark }}" readonly></textarea>
+                        <textarea class="form-control" aria-label="With textarea" name="remarks" value="{{ $customers->remarks }}" readonly></textarea>
                     </div>
                 </div>
             </div>
@@ -126,7 +126,7 @@
         $("#complete").click(function() {
             completeConfirm(function(result){
                 if (result) {
-                    location.replace("index");
+                    location.replace("/index");
                 }
             });
         });

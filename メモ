@@ -1,12 +1,11 @@
 メモ
 ⭕️困っているところ、やるべきこと
-createで送る時、エラーが出てしまう。↓
-SQLSTATE[42S22]: Column not found: 1054 Unknown column 'customers' in 'field list' (SQL: insert into `customers` (`customers`) values ())
-customersテーブルにcustomersってカラムを送ろうとしていると分かったが、どこでやってるものなのか・・・。
 
-⭕️都道府県と性別が数字になってしまっている。文字で出したい。
-⭕️誕生日のカーボン表記をしたい　今、y-m-d 00:00:00と出てしまっている。
-⭕️/editから/indexにリダイレクトしたいのに、/edit/indexというURLに飛んでしまう。
+⭕️編集したいのに追加されてしまう。後、一番最初に/index開いた時には正常なのに、リダイレクトしたらUndefinedエラーが出てしまう。
+⭕️削除表記をしたいが、削除後にTrying to get property of non-objectと出てしまう。
+　多分予想されるに削除されたらリダイレクトで参照仕様にもそれがないぞって感じだと思う。
+　（ない場合としての処理を用意しておく？）
+⭕️
 
 
 

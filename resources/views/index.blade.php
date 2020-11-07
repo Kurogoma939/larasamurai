@@ -1,5 +1,5 @@
-
 @extends('layout')
+
 
 @section('header')
     <header>
@@ -102,7 +102,7 @@
                             @foreach( $customers as $customer )
                                 <tr>
                                     <td scope="col">{{ $customer->id }}</td>
-                                    <td scope="col"><a href="detail">{{ $customer->last_name }} {{ $customer->first_name }}</a></td>
+                                    <td scope="col"><a href="detail/{{ $customer->id }}">{{ $customer->last_name }} {{ $customer->first_name }}</a></td>
                                     <td scope="col">{{ $customer->last_kana }} {{ $customer->first_kana }}</td>
                                     <td scope="col">{{ $customer->gender }}</td>
                                     <td scope="col">{{ $customer->birthday }}</td>
