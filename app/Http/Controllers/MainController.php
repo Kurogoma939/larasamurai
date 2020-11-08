@@ -82,7 +82,7 @@ class MainController extends Controller
 
         $customers->save();
 
-        return redirect('/edit'/$customers->id);
+        return redirect('/index');
 
     }
 
@@ -90,13 +90,13 @@ class MainController extends Controller
     public function show(Request $request)
     {
         $prefs = Pref::all();
-        $customers = Customer::where('id', '=', $request['id'])->first();
+        $customers = Customer::where('id', '=', $request->id)->first();
         return view('detail',compact('customers','prefs'));
     }
 
     public function remove(Request $request)
     {
-        $customer = Customer::where('id', '=', $request['id'])->delete();
+        $customer = Customer::where('id', '=', $request->id)->delete();
         return redirect('/index');
     }
 }

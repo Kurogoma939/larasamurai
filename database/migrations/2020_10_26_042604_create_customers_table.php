@@ -31,7 +31,7 @@ class CreateCustomersTable extends Migration
             $table->string('building',255)->nullable(true)->comment('建物名');
             $table->string('tel',255)->nullable(false)->comment('電話番号');
             $table->string('mobile',255)->nullable(false)->comment('携帯番号');
-            $table->string('email',255)->nullable(false)->comment('メールアドレス');
+            $table->string('email',255)->nullable(false)->unique('email')->comment('メールアドレス');
             $table->text('remarks')->nullable(true)->comment('備考');
             $table->timestamps();
         });
