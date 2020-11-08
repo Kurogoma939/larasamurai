@@ -133,7 +133,7 @@
             <hr class="mb-4">
             <div class="form-group">
                 <a  class="btn btn-secondary" href="index" style="width:150px">戻る</a>
-                <button id="complete" type="button" class="btn btn-success" style="width:150px"><i class="fas fa-database pr-1"></i> 登録</button>
+                <button id="complete" type="submit" class="btn btn-success" style="width:150px"><i class="fas fa-database pr-1"></i> 登録</button>
             </div>
         </div>
     </main>
@@ -144,36 +144,37 @@
 </div>
 
 @section('script')
-        <script>
-            $("#complete").click(function() {
-                completeConfirm(function(result){
-                    if (result) {
-                        $("form").submit();
-                    }
-                });
-            });
-
-            function completeConfirm(response){
-                notScreenRelease = true;
-                var buttons = {};
-                buttons['キャンセル'] = function(){$(this).dialog('close');response(false)};
-                buttons['登録'] = function(){$(this).dialog('close');response(true)};
-
-                $("#complete-confirm").dialog({
-                    show: {
-                        effect: "drop",
-                        duration: 500
-                    },
-                    hide: {
-                        effect: "drop",
-                        duration: 500
-                    },
-                    resizable: false,
-                    height: "auto",
-                    width: 400,
-                    modal: true,
-                    buttons: buttons
-                });
+    <script>
+        $("#complete").click(function() {
+            completeConfirm(function(result){
+                if (result) {
+                $("form").submit();
             }
-        </script>
+            });
+        });
+
+        function completeConfirm(response){
+            notScreenRelease = true;
+            var buttons = {};
+            buttons['キャンセル'] = function(){$(this).dialog('close');response(false)};
+            buttons['更新'] = function(){$(this).dialog('close');response(true)};
+
+            $("#complete-confirm").dialog({
+                show: {
+                    effect: "drop",
+                    duration: 500
+                },
+                hide: {
+                    effect: "drop",
+                    duration: 500
+                },
+                resizable: false,
+                height: "auto",
+                width: 400,
+                modal: true,
+                buttons: buttons
+            });
+        }
+    </script>
 @endsection
+

@@ -125,10 +125,3 @@
     </main>
 @endsection
 
-@section('script')
-    <script>
-        $("#search").click(function() {
-            $("form").submit();
-        });
-    </script>
-@endsection

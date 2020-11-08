@@ -30,25 +30,26 @@ class MainController extends Controller
 
     public function store(CustomerRequest $request)
     {
-            $customer = new Customer();
+        $customer = new Customer();
 
-            $customer->last_name = $request->input('last_name');
-            $customer->first_name = $request->input('first_name');
-            $customer->last_kana = $request->input('last_kana');
-            $customer->first_kana = $request->input('first_kana');
-            $customer->gender = $request->input('gender');
-            $customer->birthday = $request->input('birthday');
-            $customer->post_code = $request->input('post_code');
-            $customer->pref_id = $request->input('pref_id');
-            $customer->address = $request->input('address');
-            $customer->tel = $request->input('tel');
-            $customer->mobile = $request->input('mobile');
-            $customer->email = $request->input('email');
-            $customer->remarks = $request->input('remarks');
+        $customer->last_name = $request->input('last_name');
+        $customer->first_name = $request->input('first_name');
+        $customer->last_kana = $request->input('last_kana');
+        $customer->first_kana = $request->input('first_kana');
+        $customer->gender = $request->input('gender');
+        $customer->birthday = $request->input('birthday');
+        $customer->post_code = $request->input('post_code');
+        $customer->pref_id = $request->input('pref_id');
+        $customer->address = $request->input('address');
+        $customer->building = $request->input('building');
+        $customer->tel = $request->input('tel');
+        $customer->mobile = $request->input('mobile');
+        $customer->email = $request->input('email');
+        $customer->remarks = $request->input('remarks');
 
-            Customer::create($request->all());
+        Customer::create($request->all());
 
-            return redirect('index');
+        return redirect('index');
     }
 
 
@@ -60,25 +61,28 @@ class MainController extends Controller
         return view('edit',compact('customers','prefs'));
     }
 
-    public function updata(Request $request)
+    public function updata(Request $request, $id)
     {
-        $customer = Customer::find($request->id);
-        $customer->last_name = $request->last_name;
-        $customer->first_name = $request->first_name;
-        $customer->last_kana = $request->last_kana;
-        $customer->first_kana = $request->first_kana;
-        $customer->gender = $request->gender;
-        $customer->birthday = $request->birthday;
-        $customer->post_code = $request->post_code;
-        $customer->pref_id = $request->pref_id;
-        $customer->address = $request->address;
-        $customer->tel = $request->tel;
-        $customer->mobile = $request->mobile;
-        $customer->email = $request->email;
-        $customer->remarks = $request->remarks;
+        $customers = Customer::where('id', '=', $request['id'])->first();
 
-        $customer->save();
-        return redirect('/index');
+        $customers->last_name = $request->last_name;
+        $customers->first_name = $request->first_name;
+        $customers->last_kana = $request->last_kana;
+        $customers->first_kana = $request->first_kana;
+        $customers->gender = $request->gender;
+        $customers->birthday = $request->birthday;
+        $customers->post_code = $request->post_code;
+        $customers->pref_id = $request->pref_id;
+        $customers->address = $request->address;
+        $customers->building = $request->building;
+        $customers->tel = $request->tel;
+        $customers->mobile = $request->mobile;
+        $customers->email = $request->email;
+        $customers->remarks = $request->remarks;
+
+        $customers->save();
+
+        return redirect('/edit'/$customers->id);
 
     }
 
@@ -92,9 +96,8 @@ class MainController extends Controller
 
     public function remove(Request $request)
     {
-        $customer = Customer::find($request->id);
-        $customer->delete();
-        return redirect('/index');;
+        $customer = Customer::where('id', '=', $request['id'])->delete();
+        return redirect('/index');
     }
 }
 
