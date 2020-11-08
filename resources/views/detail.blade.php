@@ -15,9 +15,7 @@
 @section('main-content')
     <main role="main">
         <div class="container-fluid" style="margin-top: 50px; padding-left: 100px;padding-right: 100px;">
-            <form id="form" method="post" action="/detail/{id}">
                 {{ csrf_field() }}
-                {{ method_field('DELETE') }}
                 <div class="col-md-8 order-md-1">
 
                     <div class="row">
@@ -101,7 +99,7 @@
                     <div class="row">
                         <div class="col-md-3 mb-3">
                             <label for="email">メールアドレス</label>
-                            <input type="email" class="form-control" name="email" value="b{{ $customers->email }}" readonly>
+                            <input type="email" class="form-control" name="email" value="{{ $customers->email }}" readonly>
                         </div>
                     </div>
 
@@ -112,11 +110,10 @@
                         </div>
                     </div>
                 </div>
-            </form>
             <hr class="mb-4">
             <div class="form-group">
                 <a  class="btn btn-secondary" href="/index" style="width:150px">戻る</a>
-                <button id="complete" type="submit" class="btn btn-danger" style="width:150px"><i class="fas fa-database pr-1"></i> 削除</button>
+                <button id="complete" type="button" class="btn btn-danger" style="width:150px"><i class="fas fa-database pr-1"></i> 削除</button>
             </div>
         </div>
     </main>
@@ -131,7 +128,7 @@
         $("#complete").click(function() {
             completeConfirm(function(result){
                 if (result) {
-                    $("form").submit();
+                    location.replace("{{ route('customer_delete', ['id' => $customers->id]) }}")
                 }
             });
         });
