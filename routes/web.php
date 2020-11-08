@@ -32,12 +32,12 @@ Route::post('create','MainController@store');
 
 //編集したときのアクション。取得と更新。
 Route::get('edit/{id}','MainController@edit');
-Route::put('edit','MainController@updata');
+Route::post('edit/{id}','MainController@updata');
 
 
 
 //選択したデータの詳細表示と削除
 Route::get('detail/{id}','MainController@show');
-Route::delete('detail','MainController@remove');
+Route::delete('detail/{id}','MainController@remove');
 
 

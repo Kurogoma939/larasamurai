@@ -20,8 +20,9 @@
                 【メッセージサンプル】
             </div>
 
-            <form id="form" method="post" action="/index">
+            <form id="form" method="post" action="/edit/{{ $customers->id }}">
                 {{ csrf_field() }}
+                {{ method_field('POST') }}
                 <div class="col-md-8 order-md-1">
 
                         <div class="row">
@@ -143,7 +144,7 @@
                         <div class="row">
                             <div class="col-md-8 mb-3">
                                 <label for="remarks">備考</label>
-                                <textarea class="form-control" aria-label="With textarea" name="remarks" value="{{ $customers->remark }}"></textarea>
+                                <textarea class="form-control" aria-label="With textarea" name="remarks" value="{{ $customers->remarks }}"></textarea>
                             </div>
                         </div>
                 </div>
@@ -152,7 +153,7 @@
             <hr class="mb-4">
             <div class="form-group">
                 <a  class="btn btn-secondary" href="/index" style="width:150px">戻る</a>
-                <button id="complete" type="button" class="btn btn-info" style="width:150px"><i class="fas fa-database pr-1"></i> 更新</button>
+                <button id="complete" type="submit" class="btn btn-info" style="width:150px"><i class="fas fa-database pr-1"></i> 更新</button>
             </div>
         </div>
     </main>
@@ -164,6 +165,7 @@
 
 @section('script')
     <script>
+
         $("#complete").click(function() {
             completeConfirm(function(result){
                 if (result) {

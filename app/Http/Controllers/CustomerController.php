@@ -29,6 +29,7 @@ class CustomerController extends Controller
         $post_code = $request->input('post_code');
         $pref_id = $request->input('pref_id');
         $address = $request->input('address');
+        $building = $request->input('building');
         $tel = $request->input('tel');
         $mobile = $request->input('mobile');
         $email = $request->input('email');
