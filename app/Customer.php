@@ -15,22 +15,7 @@ class Customer extends Model
 
     //今はこれでいいけど、現実だと数が多すぎる。だから実際は$guardedで変更不可なものだけ指定。
     //$guardedに直そうかな・・・
-    protected $fillable = [
-        'id',
-        'last_name',
-        'first_name',
-        'last_kana',
-        'first_kana',
-        'gender',
-        'birthday',
-        'post_code',
-        'pref_id',
-        'address',
-        'tel',
-        'mobile',
-        'email',
-        'remarks',
-    ];
+    protected $guarded = 'id';
 
     //外部キーの設定（モデル：親->子）
     public function prefs()
@@ -47,7 +32,7 @@ class Customer extends Model
 
     public function getPrefecturesAttribute($value)
     {
-    return Pref::find($this->pref_id)->name;
+        return Pref::find($this->pref_id)->name;
     }
 
     /**
@@ -59,12 +44,12 @@ class Customer extends Model
 
     public function getBirthdayAttribute($value)
     {
-    $carbon = new Carbon($value);
+        $carbon = new Carbon($value);
 
-    return $carbon->format('Y/m/d');
+        return $carbon->format('Y/m/d');
 
     }
-    
+
 }
 
 

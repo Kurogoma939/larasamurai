@@ -18,10 +18,17 @@
 //①CustomerControllerのルーティング
 
 //DBからリストの取得と、入力したデータのDBへの反映
-Route::get('index','CustomerController@getList');
-Route::post('index','CustomerController@postList');
+//検索一覧へリダイレクト
+
+Route::get('/', function () {
+    return redirect()->route('customer_index');
+    });
+
+Route::get('/index','CustomerController@getList');
+Route::post('/index','CustomerController@postList');
 //検索した時のアクション。
-//Route::get('search','CustomerController@search');
+Route::get('/search','CustomerController@find');
+Route::post('/search','CustomerController@search');
 
 //②MainControllerのルーティング
 
@@ -34,10 +41,9 @@ Route::post('create','MainController@store');
 Route::get('edit/{id}','MainController@edit');
 Route::post('edit/{id}','MainController@updata');
 
-
-
 //選択したデータの詳細表示と削除
 Route::get('detail/{id}','MainController@show');
-Route::post('detail/{id}','MainController@remove')->name('customer_delete');
+Route::get('delete/{id}', 'MainController@remove')->name('customer_delete');
+
 
 

@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\CustomerRequest;
+use Illuminate\Http\Response;
 use App\Customer;
 use App\Pref;
+
 
 class CustomerController extends Controller
 {
@@ -17,7 +20,7 @@ class CustomerController extends Controller
         //渡すメソッドは１つにまとめる。まとめるために、->with,compact()がある。
     }
 
-    //ここでデータの保存
+    //ここでデータの取得リスト表記するだけ）
     public function postList(Request $request)
     {
         $last_name = $request->input('last_name');
@@ -35,23 +38,35 @@ class CustomerController extends Controller
         $email = $request->input('email');
         $remarks = $request->input('remarks');
 
-        Customer::create($request->except(['_token']));
+        Customer::create($request->all());
         return view('index');
 
     }
     //検索した時に、データを引っ張ってきて表示するメソッド。
+
+
+    public function find()
+    {
+        $prefs = Pref::all();
+        $customers = Customer::all();
+        return view('/search', compact('customers','prefs'));
+        //渡すメソッドは１つにまとめる。まとめるために、->with,compact()がある。
+    }
+
+
     public function search(Request $request)
     {
-        //検索条件が４つあるからfind使ったらだめ
+        #クエリ生成
+        $prefs = Pref::all();
+        $query = Customer::query();
 
         //受け取り
         $last_kana = $request->input('last_kana');
         $first_kana = $request->input('first_kana');
-        $gender = $request->input('gender');
+        //チェックボックスは複数選択ができるから個々で取得する必要がある。
+        $gender1 = $request->input('gender1');
+        $gender2 = $request->input('gender2');
         $pref_id = $request->input('pref_id');
-
-        #クエリ生成
-        $query = Customer::query();
 
         #条件分岐
         if(!empty($last_kana))
@@ -62,18 +77,26 @@ class CustomerController extends Controller
         {
             $query->where('first_kana','like','%'.$first_kana.'%');
         }
-        if(!empty($gender))
-        {
-            $query->where('gender','like','%'.$gender.'%');
+
+        //性別の分岐、①両方ある、②男のみ、③女のみ、④それ以外（どっちもない）
+        if(!empty($gender1) and !empty($gender2)){
+            $query->where('gender','>=','1');
+        }elseif(!empty($gender1) and empty($gender2)){
+            $query->where('gender', 1);
+        }elseif(empty($gender1) and !empty($gender2)){
+            $query->where('gender', 2);
+        }else{
+            $query->where('gender','>=','1');
         }
+
         if(!empty($pref_id))
         {
-            $query->where('pref_id','like','%'.$pref_id.'%');
+            $query->where('pref_id','=',$pref_id);
         }
 
-        $customers = $query->get()->orderBy('id','asc')->paginate(10);
-        return view('index')->with('customers',$customers);
+        $customers = $query->get();
 
+        return view('search',compact('customers','prefs'));
     }
 }
 //Eroquentとか使ってデータベースから引っ張ってくるモデル

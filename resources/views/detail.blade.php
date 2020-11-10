@@ -4,7 +4,7 @@
     <header>
         <div class="navbar navbar-dark bg-dark shadow-sm">
             <div class="container d-flex justify-content-between">
-                <a href="index" class="navbar-brand d-flex align-items-center">
+                <a href="/index" class="navbar-brand d-flex align-items-center">
                     <strong>顧客管理（詳細）</strong>
                 </a>
             </div>
@@ -106,7 +106,7 @@
                     <div class="row">
                         <div class="col-md-8 mb-3">
                             <label for="remarks">備考</label>
-                            <textarea class="form-control" aria-label="With textarea" name="remarks" value="{{ $customers->remarks }}" readonly></textarea>
+                            <textarea class="form-control" aria-label="With textarea" name="remarks" value="myremarks" readonly>{{ $customers->remarks }}</textarea>
                         </div>
                     </div>
                 </div>

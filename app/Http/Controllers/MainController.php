@@ -47,9 +47,9 @@ class MainController extends Controller
         $customer->email = $request->input('email');
         $customer->remarks = $request->input('remarks');
 
-        Customer::create($request->all());
+        $customer->save();
 
-        return redirect('index');
+        return redirect('/index');
     }
 
 
