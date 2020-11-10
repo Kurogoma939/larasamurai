@@ -53,8 +53,6 @@ class CustomerController extends Controller
         return view('/search', compact('customers','prefs'));
         //渡すメソッドは１つにまとめる。まとめるために、->with,compact()がある。
     }
-//$query->nameでダイレクトに取得（インプット無しで）
-//orwhere,inwhereつかってみる
 
     public function search(Request $request)
     {
@@ -63,16 +61,19 @@ class CustomerController extends Controller
         $query = Customer::query();
 
         //受け取り←ここを治す
+　　　　　//$request->name（inputタグの）でよい。
         $last_kana = $request->input('last_kana');
         $first_kana = $request->input('first_kana');
         //チェックボックスは複数選択ができるから個々で取得する必要がある。
         $gender1 = $request->input('gender1');
         $gender2 = $request->input('gender2');
         $pref_id = $request->input('pref_id');
+　　　　　//ここまでいらない。そのための$request
 
-        #条件分岐
+        #条件分岐 
         if(!empty($last_kana))
         {
+            //$last_kana=Customer::where('last_kana',$request->last_name)
             $query->where('last_kana','like','%'.$last_kana.'%');
         }
         if(!empty($first_kana))
@@ -81,6 +82,8 @@ class CustomerController extends Controller
         }
 
         //性別の分岐、①両方ある、②男のみ、③女のみ、④それ以外（どっちもない）
+　　　　 //ここでinwhere,orwhereつかってみる
+
         if(!empty($gender1) and !empty($gender2)){
             $query->where('gender','>=','1');
         }elseif(!empty($gender1) and empty($gender2)){
