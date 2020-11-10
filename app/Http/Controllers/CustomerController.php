@@ -45,6 +45,7 @@ class CustomerController extends Controller
     //検索した時に、データを引っ張ってきて表示するメソッド。
 
 
+
     public function find()
     {
         $prefs = Pref::all();
@@ -64,11 +65,14 @@ class CustomerController extends Controller
         $gender2 = $request->gender2;
         $pref_id = $request->pref_id;
 
+
         dump($last_kana,$first_kana,$gender1,$gender2,$pref_id);
 
-        #条件分岐
+
+        #条件分岐 
         if(!empty($last_kana))
         {
+            //$last_kana=Customer::where('last_kana',$request->last_name)
             $query->where('last_kana','like','%'.$last_kana.'%');
         }
 
@@ -78,6 +82,7 @@ class CustomerController extends Controller
         }
 
         dump($query->get());
+      
         //性別の分岐、①両方ある、②男のみ、③女のみ、④それ以外（どっちもない）
         if(!empty($gender1) && !empty($gender2)){
             $query->whereIn('gender',[1,2]);
@@ -88,8 +93,10 @@ class CustomerController extends Controller
         }elseif(empty($gender1) && empty($gender2)){
             $query->whereIn('gender',[1,2]);
         }
+      
         dump($query->get());
-        //pref_idの1を""としているせいで、idがのと排除するということをしなくてはならない
+      
+        //pref_idの1を""としているせいで、idが１のとき排除するということをしなくてはならない
         if(!empty($pref_id)){
             if($pref_id > 1){
                 $query->where('pref_id',$pref_id);
