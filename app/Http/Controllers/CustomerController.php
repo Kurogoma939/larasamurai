@@ -64,7 +64,7 @@ class CustomerController extends Controller
         $gender2 = $request->gender2;
         $pref_id = $request->pref_id;
 
-        dump($last_kana,$first_kana,$gender1,$gender2,$pref_id);
+
 
         #条件分岐
         if(!empty($last_kana))
@@ -77,7 +77,8 @@ class CustomerController extends Controller
             $query->where('first_kana','like','%'.$first_kana.'%');
         }
 
-        dump($query->get());
+
+
         //性別の分岐、①両方ある、②男のみ、③女のみ、④それ以外（どっちもない）
         if(!empty($gender1) && !empty($gender2)){
             $query->whereIn('gender',[1,2]);
@@ -88,19 +89,20 @@ class CustomerController extends Controller
         }elseif(empty($gender1) && empty($gender2)){
             $query->whereIn('gender',[1,2]);
         }
-        dump($query->get());
+
+
         //pref_idの1を""としているせいで、idがのと排除するということをしなくてはならない
         if(!empty($pref_id)){
             if($pref_id > 1){
                 $query->where('pref_id',$pref_id);
             }
         }
-        dump($query->get());
+
+
 
         $customers = $query->get();
 
-        dump($customers);
-
+      
 
         return view('/search',compact('customers','prefs','last_kana','first_kana','gender1','gender2','pref_id'));
     }
