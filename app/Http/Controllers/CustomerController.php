@@ -45,6 +45,7 @@ class CustomerController extends Controller
     //検索した時に、データを引っ張ってきて表示するメソッド。
 
 
+
     public function find()
     {
         $prefs = Pref::all();
@@ -52,7 +53,8 @@ class CustomerController extends Controller
         return view('/search', compact('customers','prefs'));
         //渡すメソッドは１つにまとめる。まとめるために、->with,compact()がある。
     }
-
+//$query->nameでダイレクトに取得（インプット無しで）
+//orwhere,inwhereつかってみる
 
     public function search(Request $request)
     {
@@ -60,7 +62,7 @@ class CustomerController extends Controller
         $prefs = Pref::all();
         $query = Customer::query();
 
-        //受け取り
+        //受け取り←ここを治す
         $last_kana = $request->input('last_kana');
         $first_kana = $request->input('first_kana');
         //チェックボックスは複数選択ができるから個々で取得する必要がある。
