@@ -1,11 +1,10 @@
 @extends('layout')
 
-
 @section('header')
     <header>
         <div class="navbar navbar-dark bg-dark shadow-sm">
             <div class="container d-flex justify-content-between">
-                <a href="index" class="navbar-brand d-flex align-items-center">
+                <a href="/index" class="navbar-brand d-flex align-items-center">
                     <strong>顧客管理（編集）</strong>
                 </a>
             </div>
@@ -96,8 +95,8 @@
                             <div class="col-md-2 mb-3">
 
                                 <label for="prefId">都道府県 <span class="badge badge-danger">必須</span></label>
-                                <select class="custom-select d-block w-100" name="pref_id" placeholder="東京都" value="{{ $customers->pref_id }}" required>
-
+                                <select class="custom-select d-block w-100" name="pref_id" required>
+                                        <option value="{{ $customers->pref_id }}">{{ $customers->prefectures }}</option>
                                     @foreach($prefs as $pref)
                                         <option value="{{ $pref->id }}">{{ $pref->name }}</option>
                                     @endforeach
@@ -144,7 +143,7 @@
                         <div class="row">
                             <div class="col-md-8 mb-3">
                                 <label for="remarks">備考</label>
-                                <textarea class="form-control" aria-label="With textarea" name="remarks" value="{{ $customers->remarks }}"></textarea>
+                                <textarea class="form-control" aria-label="With textarea" name="remarks" value="myremarks">{{ $customers->remarks }}</textarea>
                             </div>
                         </div>
                 </div>

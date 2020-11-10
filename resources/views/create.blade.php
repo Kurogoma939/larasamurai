@@ -4,7 +4,7 @@
     <header>
         <div class="navbar navbar-dark bg-dark shadow-sm">
             <div class="container d-flex justify-content-between">
-                <a href="index" class="navbar-brand d-flex align-items-center">
+                <a href="/index" class="navbar-brand d-flex align-items-center">
                     <strong>顧客管理（新規登録）</strong>
                 </a>
             </div>
@@ -157,7 +157,7 @@
             notScreenRelease = true;
             var buttons = {};
             buttons['キャンセル'] = function(){$(this).dialog('close');response(false)};
-            buttons['更新'] = function(){$(this).dialog('close');response(true)};
+            buttons['作成'] = function(){$(this).dialog('close');response(true)};
 
             $("#complete-confirm").dialog({
                 show: {

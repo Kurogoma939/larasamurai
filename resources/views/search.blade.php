@@ -120,6 +120,7 @@
 
                         </tbody>
                     </table>
+                    <a href="/index" style="width:150px;height:50px;color:orange">トップページへ戻る</a>
                 </div>
             </div>
         </div>
