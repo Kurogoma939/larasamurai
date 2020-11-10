@@ -27,8 +27,8 @@ Route::get('/', function () {
 Route::get('/index','CustomerController@getList');
 Route::post('/index','CustomerController@postList');
 //検索した時のアクション。
-Route::get('/search','CustomerController@find');
-Route::post('/search','CustomerController@search');
+Route::get('search','CustomerController@find');
+Route::post('search','CustomerController@search');
 
 //②MainControllerのルーティング
 
