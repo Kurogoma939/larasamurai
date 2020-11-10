@@ -53,50 +53,56 @@ class CustomerController extends Controller
         //渡すメソッドは１つにまとめる。まとめるために、->with,compact()がある。
     }
 
-
     public function search(Request $request)
     {
         #クエリ生成
         $prefs = Pref::all();
         $query = Customer::query();
+        $last_kana = $request->last_kana;
+        $first_kana = $request->first_kana;
+        $gender1 = $request->gender1;
+        $gender2 = $request->gender2;
+        $pref_id = $request->pref_id;
 
-        //受け取り
-        $last_kana = $request->input('last_kana');
-        $first_kana = $request->input('first_kana');
-        //チェックボックスは複数選択ができるから個々で取得する必要がある。
-        $gender1 = $request->input('gender1');
-        $gender2 = $request->input('gender2');
-        $pref_id = $request->input('pref_id');
+        dump($last_kana,$first_kana,$gender1,$gender2,$pref_id);
 
         #条件分岐
         if(!empty($last_kana))
         {
             $query->where('last_kana','like','%'.$last_kana.'%');
         }
+
         if(!empty($first_kana))
         {
             $query->where('first_kana','like','%'.$first_kana.'%');
         }
 
+        dump($query->get());
         //性別の分岐、①両方ある、②男のみ、③女のみ、④それ以外（どっちもない）
-        if(!empty($gender1) and !empty($gender2)){
-            $query->where('gender','>=','1');
-        }elseif(!empty($gender1) and empty($gender2)){
-            $query->where('gender', 1);
-        }elseif(empty($gender1) and !empty($gender2)){
-            $query->where('gender', 2);
-        }else{
-            $query->where('gender','>=','1');
+        if(!empty($gender1) && !empty($gender2)){
+            $query->whereIn('gender',[1,2]);
+        }elseif(!empty($gender1)){
+            $query->where('gender',1);
+        }elseif(!empty($gender2)){
+            $query->where('gender',2);
+        }elseif(empty($gender1) && empty($gender2)){
+            $query->whereIn('gender',[1,2]);
         }
-
-        if(!empty($pref_id))
-        {
-            $query->where('pref_id','=',$pref_id);
+        dump($query->get());
+        //pref_idの1を""としているせいで、idがのと排除するということをしなくてはならない
+        if(!empty($pref_id)){
+            if($pref_id > 1){
+                $query->where('pref_id',$pref_id);
+            }
         }
+        dump($query->get());
 
         $customers = $query->get();
 
-        return view('search',compact('customers','prefs'));
+        dump($customers);
+
+
+        return view('/search',compact('customers','prefs','last_kana','first_kana','gender1','gender2','pref_id'));
     }
 }
 //Eroquentとか使ってデータベースから引っ張ってくるモデル
