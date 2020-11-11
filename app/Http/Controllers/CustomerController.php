@@ -90,9 +90,6 @@ class CustomerController extends Controller
             $query->whereIn('gender',[1,2]);
         }
 
-        //pref_idの1を""としているせいで、idがのと排除するということをしなくてはない
-
-        dump($query->get());
 
         //pref_idの1を""としているせいで、idが１のとき排除するということをしなくてはならない
 
@@ -102,13 +99,8 @@ class CustomerController extends Controller
             }
         }
 
-
-
         $customers = $query->get();
-
-
 
         return view('/search',compact('customers','prefs','last_kana','first_kana','gender1','gender2','pref_id'));
     }
 }
-//Eroquentとか使ってデータベースから引っ張ってくるモデル
