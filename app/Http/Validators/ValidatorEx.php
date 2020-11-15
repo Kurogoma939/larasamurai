@@ -4,7 +4,7 @@
  */
 namespace App\Http\Validators;
 
-use App\Models\Customer;
+use App\Customer;
 use Illuminate\Validation\Validator;
 
 /**
