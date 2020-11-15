@@ -15,9 +15,16 @@
 @section('main-content')
     <main role="main">
         <div class="container-fluid" style="margin-top: 50px; padding-left: 100px;padding-right: 100px;">
-            <div class="alert alert-danger" role="alert">
-                【メッセージサンプル】
-            </div>
+
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 
             <form id="form" method="post" action="create">
                 {{ csrf_field() }}
@@ -25,22 +32,22 @@
                     <div class="row">
                         <div class="col-md-3 mb-3">
                             <label for="lastName">姓 <span class="badge badge-danger">必須</span></label>
-                            <input type="text" class="form-control" name="last_name" placeholder="姓" value="" required>
+                            <input type="text" class="form-control" name="last_name" placeholder="姓" value="{{ old('last_name','') }}" required>
                         </div>
                         <div class="col-md-3 mb-3">
                             <label for="firstName">名 <span class="badge badge-danger">必須</span></label>
-                            <input type="text" class="form-control" name="first_name" placeholder="名" value="" required>
+                            <input type="text" class="form-control" name="first_name" placeholder="名" value="{{ old('first_name','') }}" required>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-3 mb-3">
                             <label for="lastKana">姓かな <span class="badge badge-danger">必須</span></label>
-                            <input type="text" class="form-control" name="last_kana" placeholder="姓かな" value="" required>
+                            <input type="text" class="form-control" name="last_kana" placeholder="姓かな" value="{{ old('last_kana','') }}" required>
                         </div>
                         <div class="col-md-3 mb-3">
                             <label for="firstKana">名かな <span class="badge badge-danger">必須</span></label>
-                            <input type="text" class="form-control" name="first_kana" placeholder="名かな" value="" required>
+                            <input type="text" class="form-control" name="first_kana" placeholder="名かな" value="{{ old('first_name','') }}" required>
                         </div>
                     </div>
 
@@ -63,14 +70,14 @@
                     <div class="row">
                         <div class="col-md-3 mb-3">
                             <label for="birthday">生年月日 <span class="badge badge-danger">必須</span></label>
-                            <input type="date" class="form-control" name="birthday" placeholder="生年月日" value="" required>
+                            <input id="ymd-form" type="date" class="form-control" name="birthday" placeholder="生年月日" value="{{ old('birthday','') }}" required>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-2 mb-3">
                             <label for="postCode">郵便番号 <span class="badge badge-danger">必須</span></label>
-                            <input type="text" class="form-control" name="post_code" placeholder="郵便番号" value="" required>
+                            <input type="text" class="form-control" name="post_code" placeholder="郵便番号" value="{{ old('post_code','') }}" required>
                         </div>
                     </div>
 
@@ -90,42 +97,42 @@
                     <div class="row">
                         <div class="col-md-5 mb-3">
                             <label for="address">住所 <span class="badge badge-danger">必須</span></label>
-                            <input type="text" class="form-control" name="address" placeholder="住所" value="" required>
+                            <input type="text" class="form-control" name="address" placeholder="住所" value="{{ old('address','') }}" required>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-5 mb-3">
                             <label for="building">建物名</label>
-                            <input type="text" class="form-control" name="building" placeholder="建物名" value="">
+                            <input type="text" class="form-control" name="building" placeholder="建物名" value="{{ old('building','') }}">
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-3 mb-3">
                             <label for="tel">電話番号 <span class="badge badge-danger">必須</span></label>
-                            <input type="tel" class="form-control" name="tel" placeholder="番号（自宅）" value="" required>
+                            <input type="tel" class="form-control" name="tel" placeholder="番号（自宅）" value="{{ old('tel','') }}" required>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-3 mb-3">
                             <label for="mobile">携帯番号 <span class="badge badge-danger">必須</span></label>
-                            <input type="tel" class="form-control" name="mobile" placeholder="番号（携帯）" value="" required>
+                            <input type="tel" class="form-control" name="mobile" placeholder="番号（携帯）" value="{{ old('mobile','') }}" required>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-3 mb-3">
                             <label for="email">メールアドレス <span class="badge badge-danger">必須</span></label>
-                            <input type="email" class="form-control" name="email" placeholder="メールアドレス" value="" required>
+                            <input type="email" class="form-control" name="email" placeholder="メールアドレス" value="{{ old('email','') }}" required>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-8 mb-3">
                             <label for="remarks">備考</label>
-                            <textarea class="form-control" aria-label="With textarea" name="remarks"></textarea>
+                            <textarea class="form-control" aria-label="With textarea" name="remarks" value="{{ old('remarks','') }}"></textarea>
                         </div>
                     </div>
                 </div>
@@ -152,6 +159,7 @@
             }
             });
         });
+
 
         function completeConfirm(response){
             notScreenRelease = true;

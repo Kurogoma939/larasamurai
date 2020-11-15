@@ -27,4 +27,13 @@ class CustomerRequest extends FormRequest
             //
         ];
     }
+
+    public function messages()
+    {
+    return [
+        'email.unique_email' => 'メールアドレスは既に登録されています。',
+    ];
+    }
+
+
 }

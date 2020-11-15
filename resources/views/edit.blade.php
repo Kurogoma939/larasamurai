@@ -15,9 +15,12 @@
 @section('main-content')
     <main role="main">
         <div class="container-fluid" style="margin-top: 50px; padding-left: 100px;padding-right: 100px;">
-            <div class="alert alert-danger" role="alert">
-                【メッセージサンプル】
-            </div>
+
+            @if(count($errors) > 0)
+                <div class="alert alert-warning" role="alert">
+                    エラーがあります。正しいフォームで入力してください。
+                </div>
+            @endif
 
             <form id="form" method="post" action="/edit/{{ $customers->id }}">
                 {{ csrf_field() }}
@@ -80,7 +83,7 @@
                         <div class="row">
                             <div class="col-md-3 mb-3">
                                 <label for="birthday">生年月日 <span class="badge badge-danger">必須</span></label>
-                                <input type="date" class="form-control" name="birthday" placeholder="2000/01/01" value="{{ $customers->birthday }}" required>
+                                <input id="ymd-form" type="date" class="form-control" name="birthday" placeholder="2000/01/01" value="{{ $customers->birthday }}" required>
                             </div>
                         </div>
 

@@ -7,6 +7,7 @@ use App\Http\Requests\CustomerRequest;
 use Illuminate\Http\Response;
 use App\Customer;
 use App\Pref;
+use Illuminate\Validation\Validator;
 
 
 class CustomerController extends Controller
@@ -17,12 +18,13 @@ class CustomerController extends Controller
         $prefs = Pref::all();
         $customers = Customer::all();
         return view('index', compact('customers','prefs'));
-        //渡すメソッドは１つにまとめる。まとめるために、->with,compact()がある。
     }
 
     //ここでデータの取得リスト表記するだけ）
+    //ここ絶対違う。インプットされるやつなんてないぞ。
     public function postList(Request $request)
     {
+
         $last_name = $request->input('last_name');
         $first_name = $request->input('first_name');
         $last_kana = $request->input('last_kana');
@@ -42,10 +44,9 @@ class CustomerController extends Controller
         return view('index');
 
     }
+
+
     //検索した時に、データを引っ張ってきて表示するメソッド。
-
-
-
     public function find()
     {
         $prefs = Pref::all();
@@ -56,6 +57,14 @@ class CustomerController extends Controller
 
     public function search(Request $request)
     {
+        $validate_rule = [
+            'last_kana' => 'nullable|string',
+            'first_kana' => 'nullable|string',
+            'gender' => 'nullable|integer',
+            'pref_id' =>'nullable|integer',
+        ];
+        $this->validate($request, $validate_rule);
+
         #クエリ生成
         $prefs = Pref::all();
         $query = Customer::query();

@@ -72,9 +72,13 @@
                     <div class="form-group">
                         <button type="button" id="search" class="btn btn-primary" style="width:150px"><i class="fas fa-search pr-1"></i> 検索</button>
                     </div>
-                    <div class="alert alert-warning" role="alert">
-                        【メッセージサンプル】
-                    </div>
+
+                    @if(count($errors) > 0)
+                        <div class="alert alert-warning" role="alert">
+                            入力値にエラーがあります。正しいフォームで入力してください。
+                        </div>
+                    @endif
+
                     <div class="form-group row">
                         <a  class="btn btn-success" href="create" style="width:150px"><i class="fas fa-chalkboard-teacher pr-1"></i> 新規登録</a>
                     </div>
