@@ -13,14 +13,18 @@ class Customer extends Model
 
     protected $table = 'customers';
 
-    //今はこれでいいけど、現実だと数が多すぎる。だから実際は$guardedで変更不可なものだけ指定。
-    //$guardedに直そうかな・・・
     protected $guarded = 'id';
 
     //外部キーの設定（モデル：親->子）
     public function prefs()
     {
         return $this->hasMany('App\Pref','foreign_key');
+    }
+
+    //外部キーの設定（モデル：親->子）
+    public function cities()
+    {
+        return $this->hasMany('App\City','foreign_key');
     }
 
     /**
@@ -33,6 +37,18 @@ class Customer extends Model
     public function getPrefecturesAttribute($value)
     {
         return Pref::find($this->pref_id)->name;
+    }
+
+    /**
+     * 都道府県の名前を取得
+     *
+     * @param string $value
+     * @return string
+     */
+
+    public function getCitiesAttribute($value)
+    {
+        return City::find($this->city_id)->name;
     }
 
     /**

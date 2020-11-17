@@ -27,6 +27,9 @@ class CreateCustomersTable extends Migration
             $table->integer('pref_id')->unsigned()->nullable(false)->comment('都道府県ID');
             $table->foreign('pref_id')->references('id')->on('prefs');
 
+            $table->integer('city_id')->unsigned()->nullable(false)->comment('市区町村名');
+            $table->foreign('city_id')->references('id')->on('cities');
+
             $table->string('address',255)->nullable(false)->comment('住所');
             $table->string('building',255)->nullable(true)->comment('建物名');
             $table->string('tel',255)->nullable(false)->comment('電話番号');

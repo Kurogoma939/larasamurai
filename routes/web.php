@@ -13,27 +13,18 @@
 
 /* メインコントローラーのルーティング */
 
-//基本的にデータの取得＋反映で１つずつアクションを起こす。
-
-//①CustomerControllerのルーティング
-
-//DBからリストの取得と、入力したデータのDBへの反映
-//検索一覧へリダイレクト
-
 Route::get('/', function () {
     return redirect()->route('customer_index');
     });
 
 Route::get('/index','CustomerController@getList');
 Route::post('/index','CustomerController@postList');
+
 //検索した時のアクション。
 Route::get('search','CustomerController@find');
 Route::post('search','CustomerController@search');
 
-//②MainControllerのルーティング
-
-//最初はシーダーにあるものを表記。
-//新規登録した時のデータの取得と登録アクション
+//新規登録した時のアクション
 Route::get('create','MainController@create');
 Route::post('create','MainController@store');
 

@@ -31,7 +31,7 @@
                 <div class="col-md-8 order-md-1">
                     <div class="row">
                         <div class="col-md-3 mb-3">
-                            <label for="lastName">姓 <span class="badge badge-danger">必須</span></label>
+                            <label for="last_name">姓 <span class="badge badge-danger">必須</span></label>
                             <input type="text" class="form-control" name="last_name" placeholder="姓" value="{{ old('last_name','') }}" required>
                         </div>
                         <div class="col-md-3 mb-3">
@@ -84,14 +84,24 @@
                     <div class="row">
                         <div class="col-md-2 mb-3">
                             <label for="prefId">都道府県 <span class="badge badge-danger">必須</span></label>
-                            <select class="custom-select d-block w-100" name="pref_id" required>
-
+                            <select id="pref_id" class="custom-select d-block w-100" name="pref_id" required>
+                                <option value="{{ old('$pref->id') }}">{{ old('$pref->name') }}</option>
                                 @foreach($prefs as $pref)
                                     <option value="{{ $pref->id }}">{{ $pref->name }}</option>
                                 @endforeach>
-
                             </select>
                         </div>
+
+                        <div>
+                            <label for="cityId">市区町村 <span class="badge badge-danger">必須</span></label>
+                            <select id="city_id" class="custom-select" name="city_id" required>
+                                <option value="{{old('$city->id')}}">{{old('$city->name')}}</option>
+                                @foreach($cities as $city)
+                                    <option value="{{$city->id}}">{{$city->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
                     </div>
 
                     <div class="row">
@@ -160,7 +170,6 @@
             });
         });
 
-
         function completeConfirm(response){
             notScreenRelease = true;
             var buttons = {};
@@ -183,6 +192,7 @@
                 buttons: buttons
             });
         }
+
     </script>
 @endsection
 

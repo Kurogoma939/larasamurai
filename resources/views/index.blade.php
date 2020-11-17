@@ -96,6 +96,7 @@
                                 <th scope="col">生年月日</th>
                                 <th scope="col">郵便番号</th>
                                 <th scope="col">都道府県</th>
+                                <th scope="col">市区町村</th>
                                 <th scope="col">電話番号</th>
                                 <th scope="col">携帯番号</th>
                                 <th scope="col">メールアドレス</th>
@@ -114,6 +115,7 @@
                                     <td scope="col">{{ $customer->birthday }}</td>
                                     <td scope="col">{{ $customer->post_code }}</td>
                                     <td scope="col">{{ $customer->prefectures }}</td>
+                                    <td scope="col">{{ $customer->cities }}</td>
                                     <td scope="col">{{ $customer->tel }}</td>
                                     <td scope="col">{{ $customer->mobile }}</td>
                                     <td scope="col">{{ $customer->email }}</td>

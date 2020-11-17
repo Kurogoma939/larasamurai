@@ -4,29 +4,27 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\CustomerRequest;
-use Illuminate\Http\Response;
-use App\Http\Controllers\CustomerController;
 use App\Customer;
 use App\Pref;
+use App\City;
 use Illuminate\Validation\Validator;
 use App\Http\Validators\ValidatorEx;
 
 
 class MainController extends Controller
 {
-    //全体的にDB表記じゃなくモデル表記で書く！
-    //初期として、今ある（シーダーで作ってある）データの表示
-    public function index(Request $request)
+    public function index()
     {
        $customers = Customer::all();
        return view('index', compact('customers'));
     }
 
-    public function create(Request $request)
+    public function create()
     {
         $prefs = Pref::all();
+        $cities = City::all();
         $customers = Customer::all();
-        return view('create', compact('customers','prefs'));
+        return view('create', compact('customers','prefs','cities'));
     }
 
     public function store(CustomerRequest $request)
@@ -42,6 +40,7 @@ class MainController extends Controller
             'birthday' => ['required','date'],
             'post_code' => ['required','string'],
             'pref_id' =>['required','integer'],
+            'city_id' =>['required','integer'],
             'address' => ['required','string','max:80'],
             'building' => ['nullable','string','max:80'],
             'tel' => ['required','regex:/^0\d{1,3}-\d{1,4}-\d{4}$/'],
@@ -60,6 +59,7 @@ class MainController extends Controller
         $customer->birthday = $request->input('birthday');
         $customer->post_code = $request->input('post_code');
         $customer->pref_id = $request->input('pref_id');
+        $customer->city_id = $request->input('city_id');
         $customer->address = $request->input('address');
         $customer->building = $request->input('building');
         $customer->tel = $request->input('tel');
@@ -72,13 +72,13 @@ class MainController extends Controller
         return redirect('/index');
     }
 
-
     //編集画面
     public function edit(Request $request,$id)
     {
         $prefs = Pref::all();
+        $cities = City::all();
         $customers = Customer::where('id', '=', $request['id'])->first();
-        return view('edit',compact('customers','prefs'));
+        return view('edit',compact('customers','prefs','cities'));
     }
 
     public function updata(Request $request, $id)
@@ -94,6 +94,7 @@ class MainController extends Controller
             'birthday' => ['required','date'],
             'post_code' => ['required','string'],
             'pref_id' =>['required','integer'],
+            'city_id' =>['required','integer'],
             'address' => ['required','string','max:80'],
             'building' => ['nullable','string','max:80'],
             'tel' => ['required','regex:/^0\d{1,3}-\d{1,4}-\d{4}$/'],
@@ -103,7 +104,6 @@ class MainController extends Controller
         ];
         $this->validate($request, $validate_rule);
 
-
         $customers->last_name = $request->last_name;
         $customers->first_name = $request->first_name;
         $customers->last_kana = $request->last_kana;
@@ -112,6 +112,7 @@ class MainController extends Controller
         $customers->birthday = $request->birthday;
         $customers->post_code = $request->post_code;
         $customers->pref_id = $request->pref_id;
+        $customers->city_id = $request->city_id;
         $customers->address = $request->address;
         $customers->building = $request->building;
         $customers->tel = $request->tel;
@@ -122,15 +123,14 @@ class MainController extends Controller
         $customers->save();
 
         return redirect('/index');
-
     }
 
-    //詳細削除
     public function show(Request $request)
     {
         $prefs = Pref::all();
+        $cities = City::all();
         $customers = Customer::where('id', '=', $request->id)->first();
-        return view('detail',compact('customers','prefs'));
+        return view('detail',compact('customers','prefs','cities'));
     }
 
     public function remove(Request $request)
@@ -139,8 +139,5 @@ class MainController extends Controller
         return redirect('/index');
     }
 }
-
-
-//全体制御のコントローラー
 
 ?>

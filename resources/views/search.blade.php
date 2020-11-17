@@ -57,13 +57,18 @@
                                     <label for="prefId" class="col-sm-2 col-form-label">都道府県</label>
                                     <div class="col-sm-3">
                                         <select class="custom-select d-block" name="pref_id">
-
                                             @foreach($prefs as $pref)
                                               <option value="{{ $pref->id }}">{{ $pref->name }}</option>
                                             @endforeach
-
                                         </select>
                                     </div>
+
+                                    <div>
+                                        <label for="cityId">市区町村 <span class="badge badge-danger">必須</span></label>
+                                        <select id="city_id" class="custom-select" name="city_id" required>
+                                        </select>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>

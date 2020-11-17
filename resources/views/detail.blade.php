@@ -66,6 +66,12 @@
                             <label for="prefId">都道府県</label>
                             <input type="text" class="form-control" name="pref_id" value="{{ $customers->prefectures }}" readonly>
                         </div>
+
+                        <div>
+                            <label for="cityfId">市区町村</label>
+                            <input type="text" class="form-control" name="cityfId" value="{{$customers->cities}}" readonly>
+                        </div>
+
                     </div>
 
                     <div class="row">

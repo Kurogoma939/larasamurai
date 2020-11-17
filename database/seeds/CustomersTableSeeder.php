@@ -20,10 +20,10 @@ class CustomersTableSeeder extends Seeder
             'last_kana' => 'たけい',
             'first_kana' => 'そう',
             'gender' => '1',
-            'birthday' => '1999-03-03',
-            //日付については、1999-09-09のようにハイフン表記を使わないといけない。
+            'birthday' => '1989/03/03',
             'post_code' => '390-1401',
             'pref_id' => '1',
+            'city_id' => '1',
             'address' => '長野県松本市波田5511-1',
             'tel' => '0263-92-9999',
             'mobile' => '080-1233-4456',
@@ -44,6 +44,7 @@ class CustomersTableSeeder extends Seeder
             //日付については、1999-09-09のようにハイフン表記を使わないといけない。
             'post_code' => '143-5678',
             'pref_id' => '24',
+            'city_id' => '73',
             'address' => '三重県津市山手234-23',
             'tel' => '06-2345-3456',
             'mobile' => '090-9876-5432',
