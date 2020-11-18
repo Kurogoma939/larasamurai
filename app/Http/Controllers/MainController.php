@@ -19,7 +19,7 @@ class MainController extends Controller
        return view('index', compact('customers'));
     }
 
-    public function create()
+    public function create(Request $request)
     {
         $prefs = Pref::all();
         $cities = City::all();

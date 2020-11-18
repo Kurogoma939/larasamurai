@@ -28,6 +28,7 @@ Route::post('search','CustomerController@search');
 Route::get('create','MainController@create');
 Route::post('create','MainController@store');
 
+
 //編集したときのアクション。取得と更新。
 Route::get('edit/{id}','MainController@edit');
 Route::post('edit/{id}','MainController@updata');
