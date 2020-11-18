@@ -38,4 +38,15 @@ Route::get('detail/{id}','MainController@show');
 Route::get('delete/{id}', 'MainController@remove')->name('customer_delete');
 
 
-
+Route::get(
+    '/test-api',
+    function (\Illuminate\Http\Request $request) {
+    // GETパラメーターの都道府県IDを受け取ります
+    $pref_id = (int)$request->input('pref_id', 1);
+    // すべての市区町村から、指定された都道府県に紐づくデータに絞り込みます
+    $cities = \App\City::where('pref_id', $pref_id)->get();
+    // 得られたデータをそのまま return します
+    // Laravel が通信しやすい JSON 形式に変換します
+    return $cities;;
+    }
+   );

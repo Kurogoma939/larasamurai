@@ -193,43 +193,36 @@
             });
         }
 
-
         $('#pref_id').change(function(event) {
-
             // 選択中の option の値を取得します
             const selected_pref_id = $(event.target).val();
-
             // 市区町村の選択状態をリセットします
-            // 都道府県 x 市区町村の組み合わせ不一致防止に有効です
+            // 都道府県 x 市区町村の組み合わせ不⼀致防⽌に有効です
             const $city = $('#city_id');
             $city.val("");
-            // 現在の市区町村候補をすべて削除します
             $city.children().remove();
-            // 候補を更新するため、市区町村を一時的に選択できないようににします
             $city.attr('disabled', true);
-
-            // Ajax 通信を行います
+            
+            // Ajax 通信を⾏います
             $.ajax({
-                type: 'GET',
-                url: '/create',
-                // GET パラメーターに、「今選択した都道府県のID」を指定します
-                data: "pref_id=" + selected_pref_id,
+            type: 'GET',
+            url: '/test-api',
+            // GET パラメーターに、「今選択した都道府県のID」を指定します
+            data: "pref_id=" + selected_pref_id,
             }).done(function (responseJson) {
-                // API から受け取った結果を処理するためのコールバック処理
-
-                responseJson.forEach(function (city) {
-                    // HTMLを生成し、市区町村の候補に追加します
-                    const html = '<option value="' + city.id + '">' + city.name + '</option>';
-                    $(html).appendTo($city);
-                });
-
-                // 候補の調整が完了したため、市区町村を選択できるようにします
-                $city.attr('disabled', false);
-
-            }).fail(function () {
-                alert('市区町村データの取得に失敗しました。');
+            // API から受け取った結果を処理するためのコールバック処理
+            responseJson.forEach(function (city) {
+            // HTMLを⽣成し、市区町村の候補に追加します
+            const html = '<option value="' + city.id + '">' + city.name +
+           '</option>';
+            $(html).appendTo($city);
             });
-        });
+            // 候補の調整が完了したため、市区町村を選択できるようにします
+            $city.attr('disabled', false);
+            }).fail(function () {
+            alert('市区町村データの取得に失敗しました。');
+            });
+           });
     </script>
 
 @endsection
