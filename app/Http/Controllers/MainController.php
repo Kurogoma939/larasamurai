@@ -99,7 +99,8 @@ class MainController extends Controller
             'building' => ['nullable','string','max:80'],
             'tel' => ['required','regex:/^0\d{1,3}-\d{1,4}-\d{4}$/'],
             'mobile' => ['required','regex:/^(070|080|090)-\d{4}-\d{4}$/'],
-            'email' => ['required','unique_email'],
+            //ここにユニーク設定入れてしまうと更新できない・・・。
+            'email' => ['required'],
             'remarks' => ['nullable','string','max:80'],
         ];
         $this->validate($request, $validate_rule);
@@ -138,6 +139,7 @@ class MainController extends Controller
         $customer = Customer::where('id', '=', $request->id)->delete();
         return redirect('/index');
     }
+
 }
 
 ?>

@@ -97,7 +97,7 @@
                         <div class="row">
                             <div class="col-md-2 mb-3">
                                 <label for="prefId">都道府県 <span class="badge badge-danger">必須</span></label>
-                                <select class="custom-select d-block w-100" name="pref_id" required>
+                                <select id="pref_id" class="custom-select d-block w-100" name="pref_id" required>
                                         <option value="{{ $customers->pref_id }}">{{ $customers->prefectures }}</option>
                                     @foreach($prefs as $pref)
                                         <option value="{{ $pref->id }}">{{ $pref->name }}</option>
@@ -203,5 +203,31 @@
                 buttons: buttons
             });
         }
+
+        $('#pref_id').change(function(event) {
+            // 選択中の option の値を取得
+            const selected_pref_id = $(event.target).val();
+            // 市区町村の選択状態をリセット(しないと変なエラー出るみたい)
+            const $city = $('#city_id');
+            $city.val("");
+            $city.children().remove();
+            $city.attr('disabled', true);
+
+            $.ajax({
+                type: 'GET',
+                //ココのURLでルーティングとコントローラーやる。
+                url: '/city-api',
+                data: "pref_id=" + selected_pref_id,
+            }).done(function (responseJson) {
+                responseJson.forEach(function (city) {
+                // HTMLを⽣成し、市区町村の候補に追加
+                const html = '<option value="' + city.id + '">' + city.name +'</option>';
+                $(html).appendTo($city);
+                });
+                $city.attr('disabled', false);
+            }).fail(function () {
+                alert('市区町村データの取得に失敗しました。');
+            });
+        });
     </script>
 @endsection

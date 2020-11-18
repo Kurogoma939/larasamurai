@@ -87,4 +87,12 @@ class CustomerController extends Controller
         $customers = $query->get();
         return view('/search',compact('customers','prefs','last_kana','first_kana','gender1','gender2','pref_id'));
     }
+
+    //都道府県->市町村の絞り込み
+    public function city_select(Request $request)
+    {
+        $pref_id = (int)$request->input('pref_id', 1);
+        $cities = \App\City::where('pref_id', $pref_id)->get();
+        return $cities;;
+    }
 }
