@@ -17,12 +17,12 @@ Route::get('/', function () {
     return redirect()->route('customer_index');
     });
 
-Route::get('/index','CustomerController@getList');
-Route::post('/index','CustomerController@postList');
+Route::get('/index','MainController@getList');
+Route::post('/index','MainController@postList');
 
 //検索した時のアクション。
-Route::get('search','CustomerController@find');
-Route::post('search','CustomerController@search');
+Route::get('search','MainController@find');
+Route::post('search','MainController@search');
 
 //新規登録した時のアクション
 Route::get('create','MainController@create');
@@ -38,4 +38,4 @@ Route::get('detail/{id}','MainController@show');
 Route::get('delete/{id}', 'MainController@remove')->name('customer_delete');
 
 //都道府県->市町村の絞り込み
-Route::get('/city-api','CustomerController@city_select');
+Route::get('/city-api','MainController@city_select');

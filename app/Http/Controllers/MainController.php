@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\CustomerRequest;
+use App\Http\Requests\EditValidateRequest;
+use App\Http\Requests\SearchValidateRequest;
+use Illuminate\Http\Response;
 use App\Customer;
 use App\Pref;
 use App\City;
@@ -19,6 +22,20 @@ class MainController extends Controller
        return view('index', compact('customers'));
     }
 
+    public function getList()
+    {
+        $cities = City::all();
+        $prefs = Pref::all();
+        $customers = Customer::all();
+        return view('index', compact('customers','prefs','cities'));
+    }
+
+    public function postList(Request $request)
+    {
+        $customers = Customer::all();
+        return view('index',compact('customers'));
+    }
+
     public function create(Request $request)
     {
         $prefs = Pref::all();
@@ -31,26 +48,8 @@ class MainController extends Controller
     {
         $customer = new Customer();
 
-        $validate_rule = [
-            'last_name' => ['required','string','max:50'],
-            'first_name' => ['required','string','max:50'],
-            'last_kana' => ['required','string','max:50'],
-            'first_kana' => ['required','string','max:50'],
-            'gender' => ['required','integer'],
-            'birthday' => ['required','date'],
-            'post_code' => ['required','string'],
-            'pref_id' =>['required','integer'],
-            'city_id' =>['required','integer'],
-            'address' => ['required','string','max:80'],
-            'building' => ['nullable','string','max:80'],
-            'tel' => ['required','regex:/^0\d{1,3}-\d{1,4}-\d{4}$/'],
-            'mobile' => ['required','regex:/^(070|080|090)-\d{4}-\d{4}$/'],
-            'email' => ['required','unique_email'],
-            'remarks' => ['nullable','string','max:80'],
-        ];
-        $this->validate($request, $validate_rule);
-
-
+        //$customer->fill($request->all())->save();ってやりたいのにエラー出る。
+        //in_array() expects parameter 2 to be array, string given
         $customer->last_name = $request->input('last_name');
         $customer->first_name = $request->input('first_name');
         $customer->last_kana = $request->input('last_kana');
@@ -81,29 +80,9 @@ class MainController extends Controller
         return view('edit',compact('customers','prefs','cities'));
     }
 
-    public function updata(Request $request, $id)
+    public function updata(EditValidateRequest $request, $id)
     {
         $customers = Customer::where('id', '=', $request['id'])->first();
-
-        $validate_rule = [
-            'last_name' => ['required','string','max:50'],
-            'first_name' => ['required','string','max:50'],
-            'last_kana' => ['required','string','max:50'],
-            'first_kana' => ['required','string','max:50'],
-            'gender' => ['required','integer'],
-            'birthday' => ['required','date'],
-            'post_code' => ['required','string'],
-            'pref_id' =>['required','integer'],
-            'city_id' =>['required','integer'],
-            'address' => ['required','string','max:80'],
-            'building' => ['nullable','string','max:80'],
-            'tel' => ['required','regex:/^0\d{1,3}-\d{1,4}-\d{4}$/'],
-            'mobile' => ['required','regex:/^(070|080|090)-\d{4}-\d{4}$/'],
-            //ここにユニーク設定入れてしまうと更新できない・・・。
-            'email' => ['required'],
-            'remarks' => ['nullable','string','max:80'],
-        ];
-        $this->validate($request, $validate_rule);
 
         $customers->last_name = $request->last_name;
         $customers->first_name = $request->first_name;
@@ -138,6 +117,66 @@ class MainController extends Controller
     {
         $customer = Customer::where('id', '=', $request->id)->delete();
         return redirect('/index');
+    }
+
+    //検索した時に、データを引っ張ってきて表示するメソッド。
+    public function find()
+    {
+        $prefs = Pref::all();
+        $customers = Customer::all();
+        return view('/search', compact('customers','prefs'));
+    }
+
+    public function search(SearchValidateRequest $request)
+    {
+
+        $prefs = Pref::all();
+        $query = Customer::query();
+        $last_kana = $request->last_kana;
+        $first_kana = $request->first_kana;
+        $gender1 = $request->gender1;
+        $gender2 = $request->gender2;
+        $pref_id = $request->pref_id;
+
+        #条件分岐
+        if(!empty($last_kana))
+        {
+            //$last_kana=Customer::where('last_kana',$request->last_name)
+            $query->where('last_kana','like','%'.$last_kana.'%');
+        }
+        if(!empty($first_kana))
+        {
+            $query->where('first_kana','like','%'.$first_kana.'%');
+        }
+
+        //性別の分岐、①両方ある、②男のみ、③女のみ、④それ以外（どっちもない）
+        if(!empty($gender1) && !empty($gender2)){
+            $query->whereIn('gender',[1,2]);
+        }elseif(!empty($gender1)){
+            $query->where('gender',1);
+        }elseif(!empty($gender2)){
+            $query->where('gender',2);
+        }elseif(empty($gender1) && empty($gender2)){
+            $query->whereIn('gender',[1,2]);
+        }
+
+        //pref_idの1を""としているせいで、idが１のとき排除するということをしなくてはならない
+        if(!empty($pref_id)){
+            if($pref_id > 1){
+                $query->where('pref_id',$pref_id);
+            }
+        }
+
+        $customers = $query->get();
+        return view('/search',compact('customers','prefs','last_kana','first_kana','gender1','gender2','pref_id'));
+    }
+
+    //都道府県->市町村の絞り込み
+    public function city_select(Request $request)
+    {
+        $pref_id = (int)$request->input('pref_id', 1);
+        $cities = \App\City::where('pref_id', $pref_id)->get();
+        return $cities;;
     }
 
 }

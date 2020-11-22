@@ -17,9 +17,9 @@
         <div class="container-fluid" style="margin-top: 50px; padding-left: 100px;padding-right: 100px;">
 
             @if(count($errors) > 0)
-                <div class="alert alert-warning" role="alert">
-                    エラーがあります。正しいフォームで入力してください。
-                </div>
+                @foreach ($errors->all() as $error)
+                    <li>{{$error}}</li>
+                @endforeach
             @endif
 
             <form id="form" method="post" action="/edit/{{ $customers->id }}">

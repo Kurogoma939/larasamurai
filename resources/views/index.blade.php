@@ -75,9 +75,9 @@
                     </div>
 
                     @if(count($errors) > 0)
-                        <div class="alert alert-warning" role="alert">
-                            入力値にエラーがあります。正しいフォームで入力してください。
-                        </div>
+                        @foreach ($errors->all() as $error)
+                            <li>{{$error}}</li>
+                        @endforeach
                     @endif
 
                     <div class="form-group row">

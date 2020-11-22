@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CustomerRequest extends FormRequest
+class EditValidateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -37,17 +37,8 @@ class CustomerRequest extends FormRequest
             'building' => ['nullable','string','max:80'],
             'tel' => ['required','regex:/^0\d{1,3}-\d{1,4}-\d{4}$/'],
             'mobile' => ['required','regex:/^(070|080|090)-\d{4}-\d{4}$/'],
-            'email' => ['required','unique_email'],
+            'email' => ['required','email','string','max:50'],
             'remarks' => ['nullable','string','max:80'],
         ];
     }
-
-    public function messages()
-    {
-    return [
-        'email.unique_email' => 'メールアドレスは既に登録されています。',
-    ];
-    }
-
-
 }

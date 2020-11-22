@@ -16,14 +16,10 @@
     <main role="main">
         <div class="container-fluid" style="margin-top: 50px; padding-left: 100px;padding-right: 100px;">
 
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
+            @if(count($errors) > 0)
+                @foreach ($errors->all() as $error)
+                    <li>{{$error}}</li>
+                @endforeach
             @endif
 
             <form id="form" method="post" action="create">

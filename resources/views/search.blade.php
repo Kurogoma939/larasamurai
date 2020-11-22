@@ -62,13 +62,6 @@
                                             @endforeach
                                         </select>
                                     </div>
-
-                                    <div>
-                                        <label for="cityId">市区町村 <span class="badge badge-danger">必須</span></label>
-                                        <select id="city_id" class="custom-select" name="city_id" required>
-                                        </select>
-                                    </div>
-
                                 </div>
                             </div>
                         </div>
