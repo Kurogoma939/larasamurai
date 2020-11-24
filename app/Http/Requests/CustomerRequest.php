@@ -4,6 +4,10 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * Class CustomerRequest
+ * @package App\Http\Requests
+ */
 class CustomerRequest extends FormRequest
 {
     /**
@@ -42,12 +46,15 @@ class CustomerRequest extends FormRequest
         ];
     }
 
+    /**
+     * Get custom messages for validator errors.
+     *
+     * @return array
+     */
     public function messages()
     {
-    return [
-        'email.unique_email' => 'メールアドレスは既に登録されています。',
-    ];
+        return [
+            'email.unique_email' => 'メールアドレスは既に登録されています。',
+        ];
     }
-
-
 }

@@ -24,8 +24,8 @@
 
                 <div style="margin-bottom:20px;">
                     <form id="form" method="post" action="/search">
-                        {{ csrf_field() }}
-                        {{ method_field('POST') }}
+                        @csrf
+
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row">
@@ -57,6 +57,7 @@
                                     <label for="prefId" class="col-sm-2 col-form-label">都道府県</label>
                                     <div class="col-sm-3">
                                         <select class="custom-select d-block" name="pref_id">
+                                            <option value="0"></option>
                                             @foreach($prefs as $pref)
                                               <option value="{{ $pref->id }}">{{ $pref->name }}</option>
                                             @endforeach

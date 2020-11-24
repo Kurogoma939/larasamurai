@@ -15,7 +15,8 @@
 @section('main-content')
     <main role="main">
         <div class="container-fluid" style="margin-top: 50px; padding-left: 100px;padding-right: 100px;">
-                {{ csrf_field() }}
+                @csrf
+
                 <div class="col-md-8 order-md-1">
 
                     <div class="row">

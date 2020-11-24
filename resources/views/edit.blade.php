@@ -23,8 +23,8 @@
             @endif
 
             <form id="form" method="post" action="/edit/{{ $customers->id }}">
-                {{ csrf_field() }}
-                {{ method_field('POST') }}
+                @csrf
+
                 <div class="col-md-8 order-md-1">
 
                         <div class="row">
@@ -183,7 +183,7 @@
 
         function completeConfirm(response){
             notScreenRelease = true;
-            var buttons = {};
+            let buttons = {};
             buttons['キャンセル'] = function(){$(this).dialog('close');response(false)};
             buttons['更新'] = function(){$(this).dialog('close');response(true)};
 

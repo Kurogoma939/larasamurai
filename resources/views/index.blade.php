@@ -25,31 +25,39 @@
 
                 <div style="margin-bottom:20px;">
                     <form id="form" method="post" action="/search">
-                        {{ csrf_field() }}
-                        {{ method_field('POST') }}
+                        @csrf
+
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row">
                                     <label for="lastKana" class="col-sm-2 col-form-label">姓かな</label>
                                     <div class="col-sm-6">
-                                        <input type="text" class="form-control" name="last_kana" placeholder="姓かな">
+                                        <label>
+                                            <input type="text" class="form-control" name="last_kana" placeholder="姓かな">
+                                        </label>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="firstKana" class="col-sm-2 col-form-label">名かな</label>
                                     <div class="col-sm-6">
-                                        <input type="text" class="form-control" name="first_kana" placeholder="名かな">
+                                        <label>
+                                            <input type="text" class="form-control" name="first_kana" placeholder="名かな">
+                                        </label>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="firstName" class="col-sm-2 col-form-label">性別</label>
                                     <div class="col-sm-10 text-left">
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" name="gender1" value="1">
+                                            <label>
+                                                <input class="form-check-input" type="checkbox" name="gender1" value="1">
+                                            </label>
                                             <label class="form-check-label" for="inlineCheckbox1">男</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" name="gender2" value="2">
+                                            <label>
+                                                <input class="form-check-input" type="checkbox" name="gender2" value="2">
+                                            </label>
                                             <label class="form-check-label" for="inlineCheckbox2">女</label>
                                         </div>
                                     </div>
@@ -57,13 +65,15 @@
                                 <div class="form-group row">
                                     <label for="prefId" class="col-sm-2 col-form-label">都道府県</label>
                                     <div class="col-sm-3">
-                                        <select class="custom-select d-block" name="pref_id">
+                                        <label>
+                                            <select class="custom-select d-block" name="pref_id">
+                                                <option value="0"></option>
+                                                @foreach($prefs as $pref)
+                                                  <option value="{{ $pref->id }}">{{ $pref->name }}</option>
+                                                @endforeach
 
-                                            @foreach($prefs as $pref)
-                                              <option value="{{ $pref->id }}">{{ $pref->name }}</option>
-                                            @endforeach
-
-                                        </select>
+                                            </select>
+                                        </label>
                                     </div>
                                 </div>
                             </div>
@@ -112,7 +122,7 @@
                                     <td scope="col"><a href="detail/{{ $customer->id }}">{{ $customer->last_name }} {{ $customer->first_name }}</a></td>
                                     <td scope="col">{{ $customer->last_kana }} {{ $customer->first_kana }}</td>
                                     <td scope="col">{{ $customer->gender }}</td>
-                                    <td scope="col">{{ $customer->birthday }}</td>
+                                    <td scope="col">{{ $customer->birthday->format('Y/n/d') }}</td>
                                     <td scope="col">{{ $customer->post_code }}</td>
                                     <td scope="col">{{ $customer->prefectures }}</td>
                                     <td scope="col">{{ $customer->cities }}</td>

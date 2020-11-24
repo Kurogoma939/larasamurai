@@ -2,54 +2,64 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\CustomerRequest;
-use App\Http\Requests\EditValidateRequest;
-use App\Http\Requests\SearchValidateRequest;
-use Illuminate\Http\Response;
-use App\Customer;
-use App\Pref;
-use App\City;
-use Illuminate\Validation\Validator;
-use App\Http\Validators\ValidatorEx;
+use App\Http\Requests\EditRequest;
+use App\Http\Requests\SearchRequest;
+use App\Models\Customer;
+use App\Models\Pref;
+use App\Models\City;
+use Illuminate\Routing\Redirector;
+use Illuminate\View\View;
 
-
+/**
+ * Class MainController
+ * @package App\Http\Controllers
+ */
 class MainController extends Controller
 {
+    /**
+     * @return Factory|Application|View
+     */
     public function index()
     {
-       $customers = Customer::all();
-       return view('index', compact('customers'));
+        $customers = Customer::all();
+        return view('index', compact('customers'));
     }
 
+    /**
+     * @return Factory|Application|View
+     */
     public function getList()
     {
-        $cities = City::all();
         $prefs = Pref::all();
+        $cities = City::all();
         $customers = Customer::all();
-        return view('index', compact('customers','prefs','cities'));
+        return view('index', compact('customers', 'prefs', 'cities'));
     }
 
-    public function postList(Request $request)
-    {
-        $customers = Customer::all();
-        return view('index',compact('customers'));
-    }
-
-    public function create(Request $request)
+    /**
+     * @return Factory|Application|View
+     */
+    public function create()
     {
         $prefs = Pref::all();
         $cities = City::all();
         $customers = Customer::all();
-        return view('create', compact('customers','prefs','cities'));
+        return view('create', compact('customers', 'prefs', 'cities'));
     }
 
+    /**
+     * @param CustomerRequest $request
+     * @return Application|RedirectResponse|Redirector
+     */
     public function store(CustomerRequest $request)
     {
         $customer = new Customer();
 
-        //$customer->fill($request->all())->save();ってやりたいのにエラー出る。
-        //in_array() expects parameter 2 to be array, string given
         $customer->last_name = $request->input('last_name');
         $customer->first_name = $request->input('first_name');
         $customer->last_kana = $request->input('last_kana');
@@ -72,15 +82,24 @@ class MainController extends Controller
     }
 
     //編集画面
-    public function edit(Request $request,$id)
+
+    /**
+     * @param Request $request
+     * @return Factory|Application|View
+     */
+    public function edit(Request $request)
     {
         $prefs = Pref::all();
         $cities = City::all();
         $customers = Customer::where('id', '=', $request['id'])->first();
-        return view('edit',compact('customers','prefs','cities'));
+        return view('edit', compact('customers', 'prefs', 'cities'));
     }
 
-    public function updata(EditValidateRequest $request, $id)
+    /**
+     * @param EditRequest $request
+     * @return Application|RedirectResponse|Redirector
+     */
+    public function updata(EditRequest $request)
     {
         $customers = Customer::where('id', '=', $request['id'])->first();
 
@@ -105,31 +124,44 @@ class MainController extends Controller
         return redirect('/index');
     }
 
+    /**
+     * @param Request $request
+     * @return Factory|Application|View
+     */
     public function show(Request $request)
     {
         $prefs = Pref::all();
         $cities = City::all();
         $customers = Customer::where('id', '=', $request->id)->first();
-        return view('detail',compact('customers','prefs','cities'));
+        return view('detail', compact('customers', 'prefs', 'cities'));
     }
 
+    /**
+     * @param Request $request
+     * @return Application|RedirectResponse|Redirector
+     */
     public function remove(Request $request)
     {
         $customer = Customer::where('id', '=', $request->id)->delete();
         return redirect('/index');
     }
 
-    //検索した時に、データを引っ張ってきて表示するメソッド。
+    /**
+     * @return Factory|Application|View
+     */
     public function find()
     {
         $prefs = Pref::all();
         $customers = Customer::all();
-        return view('/search', compact('customers','prefs'));
+        return view('/search', compact('customers', 'prefs'));
     }
 
-    public function search(SearchValidateRequest $request)
+    /**
+     * @param SearchRequest $request
+     * @return Factory|Application|View
+     */
+    public function search(SearchRequest $request)
     {
-
         $prefs = Pref::all();
         $query = Customer::query();
         $last_kana = $request->last_kana;
@@ -138,47 +170,41 @@ class MainController extends Controller
         $gender2 = $request->gender2;
         $pref_id = $request->pref_id;
 
-        #条件分岐
-        if(!empty($last_kana))
-        {
-            //$last_kana=Customer::where('last_kana',$request->last_name)
-            $query->where('last_kana','like','%'.$last_kana.'%');
+        if (!empty($last_kana)) {
+            $query->where('last_kana', 'like', '%'.$last_kana.'%');
         }
-        if(!empty($first_kana))
-        {
-            $query->where('first_kana','like','%'.$first_kana.'%');
+        if (!empty($first_kana)) {
+            $query->where('first_kana', 'like', '%'.$first_kana.'%');
         }
 
-        //性別の分岐、①両方ある、②男のみ、③女のみ、④それ以外（どっちもない）
-        if(!empty($gender1) && !empty($gender2)){
-            $query->whereIn('gender',[1,2]);
-        }elseif(!empty($gender1)){
-            $query->where('gender',1);
-        }elseif(!empty($gender2)){
-            $query->where('gender',2);
-        }elseif(empty($gender1) && empty($gender2)){
-            $query->whereIn('gender',[1,2]);
+        if (!empty($input['gender1']) || !empty($input['gender2'])) {
+            $genders = [];
+            if (!empty($input['gender1'])) {
+                $genders[] = $input['gender1'];
+            }
+            if (!empty($input['gender2'])) {
+                $genders[] = $input['gender2'];
+            }
+            $query = $query->whereIn('gender', $genders);
         }
 
-        //pref_idの1を""としているせいで、idが１のとき排除するということをしなくてはならない
-        if(!empty($pref_id)){
-            if($pref_id > 1){
-                $query->where('pref_id',$pref_id);
+        if (!empty($pref_id)) {
+            if ($pref_id > 1) {
+                $query->where('pref_id', $pref_id);
             }
         }
-
         $customers = $query->get();
-        return view('/search',compact('customers','prefs','last_kana','first_kana','gender1','gender2','pref_id'));
+        return view('/search', compact('customers', 'prefs', 'last_kana', 'first_kana', 'gender1', 'gender2', 'pref_id'));
     }
 
-    //都道府県->市町村の絞り込み
-    public function city_select(Request $request)
+    /**
+     * @param Request $request
+     * @return mixed
+     * ajaxの処理
+     */
+    public function citySelect(Request $request)
     {
-        $pref_id = (int)$request->input('pref_id', 1);
-        $cities = \App\City::where('pref_id', $pref_id)->get();
-        return $cities;;
+        $pref_id = $request->input('pref_id');
+        return City::where('pref_id', $pref_id)->get();
     }
-
 }
-
-?>
