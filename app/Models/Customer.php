@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Routing\Route;
 
 /**
@@ -13,9 +14,10 @@ use Illuminate\Routing\Route;
  */
 class Customer extends Model
 {
+    use SoftDeletes;
 
     protected $guarded = 'id';
-    protected $dates = ['birthday', 'created_at', 'updated_at'];
+    protected $dates = ['birthday', 'created_at', 'updated_at','deleted_at'];
 
     /**
      * @return BelongsTo

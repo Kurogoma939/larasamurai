@@ -112,6 +112,7 @@
                                 <th scope="col">メールアドレス</th>
                                 <th scope="col">作成日時</th>
                                 <th scope="col">更新日時</th>
+                                <th scope="col">削除日時</th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>
@@ -131,6 +132,7 @@
                                     <td scope="col">{{ $customer->email }}</td>
                                     <td scope="col">{{ $customer->created_at }}</td>
                                     <td scope="col">{{ $customer->updated_at }}</td>
+                                    <td scope="col">{{ $customer->deleted_at }}</td>
                                     <td scope="col"><a class="btn btn-info" href="edit/{{ $customer->id }}">編集</a></td>
                                 </tr>
                            @endforeach
