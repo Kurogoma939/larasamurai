@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
@@ -19,7 +20,7 @@ use Illuminate\View\View;
  * Class MainController
  * @package App\Http\Controllers
  */
-class MainController extends Controller
+class CustomerController extends Controller
 {
     /**
      * @return Factory|Application|View
@@ -61,32 +62,17 @@ class MainController extends Controller
      */
     public function store(CustomerRequest $request)
     {
-        $customer = new Customer();
+        $customers = new Customer();
 
-        $customer->last_name = $request->input('last_name');
-        $customer->first_name = $request->input('first_name');
-        $customer->last_kana = $request->input('last_kana');
-        $customer->first_kana = $request->input('first_kana');
-        $customer->gender = $request->input('gender');
-        $customer->birthday = $request->input('birthday');
-        $customer->post_code = $request->input('post_code');
-        $customer->pref_id = $request->input('pref_id');
-        $customer->city_id = $request->input('city_id');
-        $customer->address = $request->input('address');
-        $customer->building = $request->input('building');
-        $customer->tel = $request->input('tel');
-        $customer->mobile = $request->input('mobile');
-        $customer->email = $request->input('email');
-        $customer->remarks = $request->input('remarks');
-
-        $customer->save();
+        $input = $request->input();
+        unset($input['_token']);
+        $customers->fill($input)->save();
 
         return redirect('/index');
     }
 
-    //編集画面
-
     /**
+     * 編集画面
      * @param Request $request
      * @return Factory|Application|View
      */
@@ -106,23 +92,9 @@ class MainController extends Controller
     {
         $customers = Customer::where('id', '=', $request['id'])->first();
 
-        $customers->last_name = $request->last_name;
-        $customers->first_name = $request->first_name;
-        $customers->last_kana = $request->last_kana;
-        $customers->first_kana = $request->first_kana;
-        $customers->gender = $request->gender;
-        $customers->birthday = $request->birthday;
-        $customers->post_code = $request->post_code;
-        $customers->pref_id = $request->pref_id;
-        $customers->city_id = $request->city_id;
-        $customers->address = $request->address;
-        $customers->building = $request->building;
-        $customers->tel = $request->tel;
-        $customers->mobile = $request->mobile;
-        $customers->email = $request->email;
-        $customers->remarks = $request->remarks;
-
-        $customers->save();
+        $input = $request->input();
+        unset($input['_token']);
+        $customers->fill($input)->save();
 
         return redirect('/index');
     }
@@ -152,26 +124,24 @@ class MainController extends Controller
 
     /**
      * @param SearchRequest $request
-     * @return Factory|Application|View
+     * @return LengthAwarePaginator
      *
-     * ここもっとすっきりさせられる。
      */
     public function search(SearchRequest $request)
     {
-        $prefs = Pref::all();
-        $customers = Customer::paginate(10);
-        $query = Customer::query();
-        $last_kana = $request->last_kana;
-        $first_kana = $request->first_kana;
-        $gender1 = $request->gender1;
-        $gender2 = $request->gender2;
-        $pref_id = $request->pref_id;
+        $perPage = config('crud.app.per_page');
 
-        if (!empty($last_kana)) {
-            $query->where('last_kana', 'like', '%'.$last_kana.'%');
+        if (empty($input)) {
+            return Customer::paginate($perPage);
         }
-        if (!empty($first_kana)) {
-            $query->where('first_kana', 'like', '%'.$first_kana.'%');
+
+        $query = Customer::query();
+
+        if (!empty($input['last_kana'])) {
+            $query->where('last_kana', 'like', '%'.$input['last_kana'].'%');
+        }
+        if (!empty($input['first_kana'])) {
+            $query->where('first_kana', 'like', '%'.$input['first_kana'].'%');
         }
 
         if (!empty($input['gender1']) || !empty($input['gender2'])) {
@@ -185,21 +155,18 @@ class MainController extends Controller
             $query = $query->whereIn('gender', $genders);
         }
 
-        if (!empty($pref_id)) {
-            if ($pref_id > 1) {
-                $query->where('pref_id', $pref_id);
-            }
+        if (!empty($input['pref_id'])) {
+            $query = $query->where('pref_id', '=', $input['pref_id']);
         }
 
-        $per_page = config('crud.app.per_page');
-        $customers = $query->paginate($per_page);
-        return view('index', compact('customers', 'prefs', 'last_kana', 'first_kana', 'gender1', 'gender2', 'pref_id'));
+        return $query->paginate($perPage);
     }
 
     /**
      * @param Request $request
      * @return mixed
      * ajaxの処理
+     * ここは別コントローラーで処理した方が良い。
      */
     public function citySelect(Request $request)
     {

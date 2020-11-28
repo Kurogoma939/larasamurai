@@ -1,25 +1,22 @@
 <?php
 
-/**
- * 市区町村ファサード
- */
 
 namespace App\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
- * 市区町村Facadeクラスです。
- *
- * @author Satoshi Nagashiba <bobtabo.buhibuhi@gmail.com>
+ * Class CityFacade
  * @package App\Facades
  */
 class CityFacade extends Facade
 {
     /**
-     * Facadeのアクセサを取得します。
+     * Facadeのアクセサを取得
      *
      * @return string アクセサ
+     *
+     * アクセサ＝>モデルから持ってきたデータを加工する。
      */
     protected static function getFacadeAccessor()
     {

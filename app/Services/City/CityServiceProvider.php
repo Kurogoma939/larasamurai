@@ -1,30 +1,25 @@
 <?php
-/**
- * 市区町村サービスプロバイダー
- */
+
 namespace App\Services\City;
 
 use Illuminate\Support\ServiceProvider;
 
 /**
- * 市区町村ServiceProviderクラスです。
- *
- * @author Satoshi Nagashiba <bobtabo.buhibuhi@gmail.com>
+ * Class CityServiceProvider
  * @package App\Services\City
  */
 class CityServiceProvider extends ServiceProvider
 {
     /**
-     * 遅延プロバイダー
+     * 遅延処理defer（デフォルトはfalse)
      *
-     * @var bool
      */
     protected $defer = true;
 
     /**
      * サービスプロバイダーの登録
-     *
      * @return void
+     * サービスプロバイダーではシングルトンを使うと良い。
      */
     public function register()
     {
@@ -34,8 +29,7 @@ class CityServiceProvider extends ServiceProvider
     }
 
     /**
-     * 遅延プロバイダーのサービスコンテナ結合名
-     *
+     * サービスコンテナ結合
      * @return array
      */
     public function provides()

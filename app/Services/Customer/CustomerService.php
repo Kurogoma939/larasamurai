@@ -6,41 +6,37 @@ namespace App\Services\Customer;
 
 use App\Models\Customer;
 use App\Services\AbstractService;
+use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 /**
- * 顧客Serviceクラスです。
- *
- * @author Satoshi Nagashiba <bobtabo.buhibuhi@gmail.com>
+ * Class CustomerService
  * @package App\Services\Customer
  */
 class CustomerService extends AbstractService
 {
     /**
-     * 顧客リストを取得します。
      *
      * @param array $input 検索条件
      * @return LengthAwarePaginator ページネーター
      */
     public function getList(array $input): LengthAwarePaginator
     {
+        $perPage = config('crud.app.per_page');
+
         if (empty($input)) {
-            return Customer::paginate(config('crud.app.default.limit'));
+            return Customer::paginate($perPage);
         }
 
         $query = Customer::query();
 
-        //姓かなを部分一致で検索します
         if (!empty($input['last_kana'])) {
-            $query = $query->where('last_kana', 'LIKE', '%' . $input['last_kana'] . '%');
+            $query->where('last_kana', 'like', '%' . $input['last_kana'] . '%');
         }
-
-        //名かなを部分一致で検索します
         if (!empty($input['first_kana'])) {
-            $query = $query->where('first_kana', 'LIKE', '%' . $input['first_kana'] . '%');
+            $query->where('first_kana', 'like', '%' . $input['first_kana'] . '%');
         }
 
-        //性別で検索します
         if (!empty($input['gender1']) || !empty($input['gender2'])) {
             $genders = [];
             if (!empty($input['gender1'])) {
@@ -52,19 +48,17 @@ class CustomerService extends AbstractService
             $query = $query->whereIn('gender', $genders);
         }
 
-        //都道府県で検索します
         if (!empty($input['pref_id'])) {
             $query = $query->where('pref_id', '=', $input['pref_id']);
         }
 
-        return $query->paginate(config('crud.app.default.limit'));
+        return $query->paginate($perPage);
     }
 
     /**
-     * 顧客を取得します。
-     *
-     * @param int $id 顧客ID
-     * @return Customer 顧客モデル
+     * 顧客取得
+     * @param int $id
+     * @return Customer
      */
     public function get(int $id): Customer
     {
@@ -72,7 +66,7 @@ class CustomerService extends AbstractService
     }
 
     /**
-     * 顧客を登録/更新します。
+     * customersテーブルに登録/更新
      *
      * @param array $input データ
      * @param int|null $id 顧客ID
@@ -89,9 +83,9 @@ class CustomerService extends AbstractService
     }
 
     /**
-     * 顧客を削除します。
-     *
+     * customersテーブルから削除
      * @param int $id 顧客ID
+     * @throws Exception
      */
     public function delete(int $id): void
     {
@@ -99,24 +93,5 @@ class CustomerService extends AbstractService
         if (!empty($model)) {
             $model->delete();
         }
-    }
-
-    /**
-     * メールアドレスが未登録か確認します。
-     *
-     * @param string $email メールアドレス
-     * @param int|null $id 顧客ID
-     * @return bool メールアドレスが未登録の場合 true を返します
-     */
-    public function isUniqueEmail(string $email, ?int $id): bool
-    {
-        $query = Customer::where('email', '=', $email);
-
-        if (!empty($id)) {
-            $query->where('id', '!=', $id);
-        }
-        $result = $query->count();
-
-        return ($result == 0);
     }
 }

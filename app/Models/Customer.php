@@ -11,6 +11,7 @@ use Illuminate\Routing\Route;
  * Class Customer
  * @package App
  * @method static where(string $string, string $string1, Route|object|string $id)
+ * @method static paginate(\Illuminate\Config\Repository|\Illuminate\Foundation\Application $per_page)
  */
 class Customer extends Model
 {

@@ -1,30 +1,25 @@
 <?php
-/**
- * 都道府県サービスプロバイダー
- */
+
 namespace App\Services\Pref;
 
 use Illuminate\Support\ServiceProvider;
 
 /**
- * 都道府県ServiceProviderクラスです。
- *
- * @author Satoshi Nagashiba <bobtabo.buhibuhi@gmail.com>
+ * Class PrefServiceProvider
  * @package App\Services\Pref
  */
 class PrefServiceProvider extends ServiceProvider
 {
     /**
-     * 遅延プロバイダー
-     *
-     * @var bool
+     * 初期起動処理:registerメソッドの読み込み時間を管理する。
+     * registerメソッドに書いてはいけない。
      */
     protected $defer = true;
 
     /**
-     * サービスプロバイダーの登録
-     *
-     * @return void
+     * アプリケーション等の初期起動処理（ルーティングの設定など）を行う
+     * シングルトン=>クラスのインスタンスは必ず一つだけと定義するもの。
+     * クラスの依存関係を一時解除するもの。
      */
     public function register()
     {
@@ -34,7 +29,7 @@ class PrefServiceProvider extends ServiceProvider
     }
 
     /**
-     * 遅延プロバイダーのサービスコンテナ結合名
+     * 登録するサービスコンテナ結合名
      *
      * @return array
      */

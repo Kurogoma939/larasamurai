@@ -1,31 +1,21 @@
 <?php
-/**
- * 基底サービス
- */
+
 namespace App\Services;
 
 use Illuminate\Foundation\Application;
 
 /**
- * 基底Serviceクラスです。
+ * 宣言だけして、処理の内容を定義しない抽象メソッド。
+ * 依存度が低くなるため、テスト等がしやすくなる（独立性が高い）。
  *
- * @author Satoshi Nagashiba <bobtabo.buhibuhi@gmail.com>
+ * Class AbstractService
  * @package App\Services
  */
 abstract class AbstractService
 {
-    /**
-     * アプリケーション
-     *
-     * @var \Illuminate\Foundation\Application
-     */
+
     protected $app = null;
 
-    /**
-     * コンストラクタ。
-     *
-     * @param Application $app
-     */
     public function __construct(Application $app)
     {
         $this->app = $app;

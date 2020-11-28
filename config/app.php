@@ -180,6 +180,8 @@ return [
     | is started. However, feel free to register as many as you wish as
     | the aliases are "lazy" loaded so they don't hinder performance.
     |
+    |ココに記述することで、パスを省略して書くことができる。
+    |逆にココを見るとその実行経路がわかる。
     */
 
     'aliases' => [
