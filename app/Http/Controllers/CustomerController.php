@@ -161,16 +161,4 @@ class CustomerController extends Controller
 
         return $query->paginate($perPage);
     }
-
-    /**
-     * @param Request $request
-     * @return mixed
-     * ajaxの処理
-     * ここは別コントローラーで処理した方が良い。
-     */
-    public function citySelect(Request $request)
-    {
-        $pref_id = $request->input('pref_id');
-        return City::where('pref_id', $pref_id)->get();
-    }
 }

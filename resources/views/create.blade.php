@@ -158,64 +158,64 @@
 </div>
 
 @section('script')
-        <script>
-            $("#complete").click(function() {
-                completeConfirm(function(result){
-                    if (result) {
-                    $("form").submit();
-                }
-                });
-            });
-
-            function completeConfirm(response){
-                notScreenRelease = true;
-                var buttons = {};
-                buttons['キャンセル'] = function(){$(this).dialog('close');response(false)};
-                buttons['作成'] = function(){$(this).dialog('close');response(true)};
-
-                $("#complete-confirm").dialog({
-                    show: {
-                        effect: "drop",
-                        duration: 500
-                    },
-                    hide: {
-                        effect: "drop",
-                        duration: 500
-                    },
-                    resizable: false,
-                    height: "auto",
-                    width: 400,
-                    modal: true,
-                    buttons: buttons
-                });
+    {<script>
+        $("#complete").click(function() {
+            completeConfirm(function(result){
+                if (result) {
+                $("form").submit();
             }
+            });
+        });
 
-            $('#pref_id').change(function(event) {
-                // 選択中の option の値を取得
-                const selected_pref_id = $(event.target).val();
-                // 市区町村の選択状態をリセット(しないと変なエラー出るみたい)
-                const $city = $('#city_id');
-                $city.val("");
-                $city.children().remove();
-                $city.attr('disabled', true);
+        function completeConfirm(response){
+            notScreenRelease = true;
+            var buttons = {};
+            buttons['キャンセル'] = function(){$(this).dialog('close');response(false)};
+            buttons['作成'] = function(){$(this).dialog('close');response(true)};
 
-                $.ajax({
-                type: 'GET',
-                url: '/city-api',
-                //ココのURLでルーティングとコントローラー
-                data: "pref_id=" + selected_pref_id,
-                }).done(function (responseJson) {
-                responseJson.forEach(function (city) {
-                // HTMLを⽣成し、市区町村の候補に追加
-                const html = '<option value="' + city.id + '">' + city.name + '</option>';
-                $(html).appendTo($city);
-                });
-                $city.attr('disabled', false);
-                }).fail(function () {
-                alert('市区町村データの取得に失敗しました。');
-                });
-               });
-        </script>
+            $("#complete-confirm").dialog({
+                show: {
+                    effect: "drop",
+                    duration: 500
+                },
+                hide: {
+                    effect: "drop",
+                    duration: 500
+                },
+                resizable: false,
+                height: "auto",
+                width: 400,
+                modal: true,
+                buttons: buttons
+            });
+        }
+
+        $('#pref_id').change(function(event) {
+            // 選択中の option の値を取得
+            const selected_pref_id = $(event.target).val();
+            // 市区町村の選択状態をリセット(しないと変なエラー出るみたい)
+            const $city = $('#city_id');
+            $city.val("");
+            $city.children().remove();
+            $city.attr('disabled', true);
+
+            $.ajax({
+            type: 'GET',
+            url: '/city-ajax',
+            //ココのURLでルーティングとコントローラー
+            data: "pref_id=" + selected_pref_id,
+            }).done(function (responseJson) {
+            responseJson.forEach(function (city) {
+            // HTMLを⽣成し、市区町村の候補に追加
+            const html = '<option value="' + city.id + '">' + city.name + '</option>';
+            $(html).appendTo($city);
+            });
+            $city.attr('disabled', false);
+            }).fail(function () {
+            alert('市区町村データの取得に失敗しました。');
+            });
+            });
+    </script>}
 
 @endsection
 

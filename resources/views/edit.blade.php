@@ -216,7 +216,7 @@
             $.ajax({
                 type: 'GET',
                 //ココのURLでルーティングとコントローラーやる。
-                url: '/city-api',
+                url: '/city-ajax',
                 data: "pref_id=" + selected_pref_id,
             }).done(function (responseJson) {
                 responseJson.forEach(function (city) {
