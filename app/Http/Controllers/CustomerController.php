@@ -19,7 +19,7 @@ use Illuminate\View\View;
  * Class MainController
  * @package App\Http\Controllers
  */
-class MainController extends Controller
+class CustomerController extends Controller
 {
     /**
      * @return Factory|Application|View

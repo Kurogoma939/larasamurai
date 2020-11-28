@@ -41,7 +41,6 @@ class CreateCustomersTable extends Migration
 
             $table->timestamp('created_at')->useCurrent()->comment('作成日時');
             $table->timestamp('updated_at')->useCurrent()->comment('更新日時');
-            $table->softDeletes()->useCurrent()->comment('削除日時');
         });
     }
 
