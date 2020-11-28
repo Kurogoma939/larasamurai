@@ -14,7 +14,7 @@ class DeleteCustomersTable extends Migration
     public function up()
     {
         Schema::table('customers', function (Blueprint $table) {
-            $table->timestamp('deleted_at')->nullable()->useCurrent()->comment('削除日時');
+            $table->timestamp('deleted_at')->nullable()->comment('削除日時');
         });
     }
 
