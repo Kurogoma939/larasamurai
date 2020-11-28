@@ -19,8 +19,7 @@ Route::get('/', function () {
 
 Route::get('/index', 'MainController@getList');
 //検索した時のアクション。
-Route::get('/search', 'MainController@find');
-Route::post('/search', 'MainController@search');
+Route::get('/search', 'MainController@search');
 
 //新規登録
 Route::get('/create', 'MainController@create');

@@ -37,7 +37,10 @@ class MainController extends Controller
     {
         $prefs = Pref::all();
         $cities = City::all();
-        $customers = Customer::all();
+
+        $per_page = config('crud.app.per_page');
+        $customers = Customer::paginate($per_page);
+
         return view('index', compact('customers', 'prefs', 'cities'));
     }
 
@@ -146,23 +149,17 @@ class MainController extends Controller
         return redirect('/index');
     }
 
-    /**
-     * @return Factory|Application|View
-     */
-    public function find()
-    {
-        $prefs = Pref::all();
-        $customers = Customer::all();
-        return view('/search', compact('customers', 'prefs'));
-    }
 
     /**
      * @param SearchRequest $request
      * @return Factory|Application|View
+     *
+     * ここもっとすっきりさせられる。
      */
     public function search(SearchRequest $request)
     {
         $prefs = Pref::all();
+        $customers = Customer::paginate(10);
         $query = Customer::query();
         $last_kana = $request->last_kana;
         $first_kana = $request->first_kana;
@@ -193,8 +190,10 @@ class MainController extends Controller
                 $query->where('pref_id', $pref_id);
             }
         }
-        $customers = $query->get();
-        return view('/search', compact('customers', 'prefs', 'last_kana', 'first_kana', 'gender1', 'gender2', 'pref_id'));
+
+        $per_page = config('crud.app.per_page');
+        $customers = $query->paginate($per_page);
+        return view('index', compact('customers', 'prefs', 'last_kana', 'first_kana', 'gender1', 'gender2', 'pref_id'));
     }
 
     /**

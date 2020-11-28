@@ -10,7 +10,7 @@ $factory->define(Customer::class, function (Faker $faker) {
         'last_kana' => $faker->lastName,
         'first_kana' => $faker->firstName,
         'gender' => $faker->randomElement(['1', '2']),
-        'birthday' => $faker->dateTimeThisCentury,
+        'birthday' => $faker->dateTimeThisCentury->format('Y-m-d'),
         'post_code' => $faker->postcode,
         'pref_id' => $faker->numberBetween($min=1, $max=47),
         'city_id' => $faker->numberBetween($min=1, $max=141),
