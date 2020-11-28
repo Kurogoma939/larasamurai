@@ -4,7 +4,7 @@
  */
 namespace App\Http\Validators;
 
-use App\Models\Customer;
+use Customer;
 use Illuminate\Validation\Validator;
 
 /**
@@ -28,14 +28,6 @@ class ValidatorEx extends Validator
             return true;
         }
 
-        $query = Customer::where('email', '=', $value);
-
-        $id = $this->getValue('id');
-        if (!empty($id)) {
-            $query->where('id', '!=', $id);
-        }
-        $result = $query->count();
-
-        return ($result == 0);
+        return Customer::isUniqueEmail($value, $this->getValue('id'));
     }
 }

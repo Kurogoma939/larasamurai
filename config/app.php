@@ -166,6 +166,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\ValidatorExServiceProvider::class,
+        App\Services\City\CityServiceProvider::class,
+        App\Services\Customer\CustomerServiceProvider::class,
+        App\Services\Pref\PrefServiceProvider::class,
     ],
 
     /*
@@ -214,6 +217,10 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+
+        'City' => App\Facades\CityFacade::class,
+        'Customer' => App\Facades\CustomerFacade::class,
+        'Pref' => App\Facades\PrefFacade::class,
 
     ],
 
