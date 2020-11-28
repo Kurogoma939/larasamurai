@@ -22,17 +22,17 @@ class Customer extends Model
     /**
      * @return BelongsTo
      */
-    public function prefs()
+    public function pref()
     {
-        return $this->belongsTo('Pref', 'pref_id', 'id');
+        return $this->belongsTo('App\Models\Pref');
     }
 
     /**
      * @return BelongsTo
      */
-    public function cities()
+    public function city()
     {
-        return $this->belongsTo('City', 'city_id', 'id');
+        return $this->belongsTo('App\Models\City');
     }
 
     /**

@@ -17,21 +17,21 @@ Route::get('/', function () {
     return redirect()->route('customer_index');
 });
 
-Route::get('/index', 'MainController@getList');
+Route::get('/index', 'CustomerController@getList');
 //検索した時のアクション。
-Route::get('/search', 'MainController@search');
+Route::get('/search', 'CustomerController@search');
 
 //新規登録
-Route::get('/create', 'MainController@create');
-Route::post('/create', 'MainController@store');
+Route::get('/create', 'CustomerController@create');
+Route::post('/create', 'CustomerController@store');
 
 //編集
-Route::get('/edit/{id}', 'MainController@edit');
-Route::post('/edit/{id}', 'MainController@updata');
+Route::get('/edit/{id}', 'CustomerController@edit');
+Route::post('/edit/{id}', 'CustomerController@updata');
 
 //詳細表示と削除
-Route::get('/detail/{id}', 'MainController@show');
-Route::get('/delete/{id}', 'MainController@remove')->name('customer_delete');
+Route::get('/detail/{id}', 'CustomerController@show');
+Route::get('/delete/{id}', 'CustomerController@remove')->name('customer_delete');
 
 //ajax
-Route::get('/city-api', 'MainController@citySelect');
+Route::get('/city-api', 'CustomerController@citySelect');

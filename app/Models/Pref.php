@@ -12,21 +12,21 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Pref extends Model
 {
     protected $guarded = 'id';
-    protected $dates = ['birthday', 'created_at', 'updated_at'];
+    protected $dates = ['created_at', 'updated_at'];
 
     /**
      * @return HasMany
      */
-    public function customers()
+    public function customer()
     {
-        return $this->hasMany('Customer');
+        return $this->hasMany('App\Models\Customer');
     }
 
     /**
      * @return HasMany
      */
-    public function cities()
+    public function city()
     {
-        return $this->hasMany('City');
+        return $this->hasMany('App\Models\City');
     }
 }
