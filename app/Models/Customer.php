@@ -22,29 +22,19 @@ class Customer extends Model
     /**
      * @return BelongsTo
      */
-    public function prefs()
+    public function pref()
     {
-        return $this->belongsTo('Pref', 'pref_id', 'id');
+        return $this->belongsTo('Pref');
     }
 
     /**
      * @return BelongsTo
      */
-    public function cities()
+    public function city()
     {
-        return $this->belongsTo('City', 'city_id', 'id');
+        return $this->belongsTo('City');
     }
 
-    /**
-     * 都道府県の名前を取得
-     *
-     * @return string
-     */
-
-    public function getPrefecturesAttribute()
-    {
-        return Pref::find($this->pref_id)->name;
-    }
 
     /**
      * 市区町村の名前を取得

@@ -125,8 +125,8 @@
                                     <td scope="col">{{ $customer->gender }}</td>
                                     <td scope="col">{{ $customer->birthday->format('Y/n/d') }}</td>
                                     <td scope="col">{{ $customer->post_code }}</td>
-                                    <td scope="col">{{ $customer->prefectures }}</td>
-                                    <td scope="col">{{ $customer->cities }}</td>
+                                    <td scope="col">{{ $customer->pref->name }}</td>
+                                    <td scope="col">{{ $customer->city->name }}</td>
                                     <td scope="col">{{ $customer->tel }}</td>
                                     <td scope="col">{{ $customer->mobile }}</td>
                                     <td scope="col">{{ $customer->email }}</td>
