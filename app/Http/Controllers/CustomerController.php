@@ -124,12 +124,14 @@ class CustomerController extends Controller
 
     /**
      * @param SearchRequest $request
-     * @return LengthAwarePaginator
+     * @return LengthAwarePaginator|Factory|Application|View
      *
      */
     public function search(SearchRequest $request)
     {
         $perPage = config('crud.app.per_page');
+        $input = $request->input();
+        $prefs = Pref::all();
 
         if (empty($input)) {
             return Customer::paginate($perPage);
@@ -159,6 +161,10 @@ class CustomerController extends Controller
             $query = $query->where('pref_id', '=', $input['pref_id']);
         }
 
-        return $query->paginate($perPage);
+        $customers = $query->paginate($perPage);
+
+
+
+        return view('index', compact('customers', 'prefs'));
     }
 }

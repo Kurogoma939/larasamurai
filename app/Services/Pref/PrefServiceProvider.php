@@ -11,15 +11,13 @@ use Illuminate\Support\ServiceProvider;
 class PrefServiceProvider extends ServiceProvider
 {
     /**
-     * 初期起動処理:registerメソッドの読み込み時間を管理する。
-     * registerメソッドに書いてはいけない。
+     * @var bool
+     * 初期起動処理のための遅延処理
      */
     protected $defer = true;
 
     /**
-     * アプリケーション等の初期起動処理（ルーティングの設定など）を行う
-     * シングルトン=>クラスのインスタンスは必ず一つだけと定義するもの。
-     * クラスの依存関係を一時解除するもの。
+     *　初期起動処理
      */
     public function register()
     {

@@ -1,7 +1,5 @@
 <?php
-/**
- * 顧客サービス
- */
+
 namespace App\Services\Customer;
 
 use App\Models\Customer;
@@ -18,9 +16,9 @@ class CustomerService extends AbstractService
     /**
      *
      * @param array $input 検索条件
-     * @return LengthAwarePaginator ページネーター
+     * @return LengthAwarePaginator ページネーターsearch
      */
-    public function getList(array $input): LengthAwarePaginator
+    public function search(array $input): LengthAwarePaginator
     {
         $perPage = config('crud.app.per_page');
 

@@ -15,8 +15,6 @@ class CityFacade extends Facade
      * Facadeのアクセサを取得
      *
      * @return string アクセサ
-     *
-     * アクセサ＝>モデルから持ってきたデータを加工する。
      */
     protected static function getFacadeAccessor()
     {

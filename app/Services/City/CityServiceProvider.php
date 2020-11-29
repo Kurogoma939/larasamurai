@@ -12,14 +12,12 @@ class CityServiceProvider extends ServiceProvider
 {
     /**
      * 遅延処理defer（デフォルトはfalse)
-     *
      */
     protected $defer = true;
 
     /**
      * サービスプロバイダーの登録
      * @return void
-     * サービスプロバイダーではシングルトンを使うと良い。
      */
     public function register()
     {
