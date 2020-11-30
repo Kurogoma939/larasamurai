@@ -18,21 +18,7 @@ class Customer extends Model
     use SoftDeletes;
 
     protected $guarded = 'id';
-    protected $fillable = [
-        'last_name',
-        'first_name',
-        'last_kana',
-        'first_kana',
-        'gender',
-        'birthday',
-        'post_code',
-        'address',
-        'building',
-        'tel',
-        'mobile',
-        'email',
-        'remark'
-    ];
+
     protected $dates = ['birthday', 'created_at', 'updated_at','deleted_at'];
 
     /**
