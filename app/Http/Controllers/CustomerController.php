@@ -94,7 +94,7 @@ class CustomerController extends Controller
 
         $input = $request->input();
         unset($input['_token']);
-        $customers->fill(['input' => $input])->save();
+        $customer->fill(['input' => $input])->save();
 
         return redirect('/index');
     }

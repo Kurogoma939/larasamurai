@@ -2,16 +2,18 @@
 
 namespace App\Models;
 
+use Illuminate\Config\Repository;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Foundation\Application;
 use Illuminate\Routing\Route;
 
 /**
  * Class Customer
  * @package App
  * @method static where(string $string, string $string1, Route|object|string $id)
- * @method static paginate(\Illuminate\Config\Repository|\Illuminate\Foundation\Application $per_page)
+ * @method static paginate(Repository|Application $per_page)
  */
 class Customer extends Model
 {
@@ -26,11 +28,7 @@ class Customer extends Model
      */
     public function pref()
     {
-<<<<<<< HEAD
         return $this->belongsTo('App\Models\Pref');
-=======
-        return $this->belongsTo('Pref');
->>>>>>> develop3
     }
 
     /**
@@ -38,13 +36,8 @@ class Customer extends Model
      */
     public function city()
     {
-<<<<<<< HEAD
         return $this->belongsTo('App\Models\City');
-=======
-        return $this->belongsTo('City');
->>>>>>> develop3
     }
-
 
     /**
      * 市区町村の名前を取得

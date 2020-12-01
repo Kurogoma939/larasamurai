@@ -11,8 +11,6 @@
 |
 */
 
-/* メインコントローラーのルーティング */
-
 Route::get('/', function () {
     return redirect()->route('customer_index');
 });
@@ -34,8 +32,4 @@ Route::get('/detail/{id}', 'CustomerController@show');
 Route::get('/delete/{id}', 'CustomerController@remove')->name('customer_delete');
 
 //ajax
-<<<<<<< HEAD
 Route::get('/city-ajax', 'CityAjaxController@citySelect');
-=======
-Route::get('/city-api', 'CustomerController@citySelect');
->>>>>>> develop4
