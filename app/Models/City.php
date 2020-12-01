@@ -20,7 +20,11 @@ class City extends Model
      */
     public function customer()
     {
+<<<<<<< HEAD
         return $this->hasMany('App\Models\Customer');
+=======
+        return $this->belongsTo('App\Models\Customer');
+>>>>>>> develop3
     }
 
     /**

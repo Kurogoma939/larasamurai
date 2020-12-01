@@ -24,7 +24,11 @@ class Customer extends Model
      */
     public function pref()
     {
+<<<<<<< HEAD
         return $this->belongsTo('App\Models\Pref');
+=======
+        return $this->belongsTo('Pref');
+>>>>>>> develop3
     }
 
     /**
@@ -32,19 +36,13 @@ class Customer extends Model
      */
     public function city()
     {
+<<<<<<< HEAD
         return $this->belongsTo('App\Models\City');
+=======
+        return $this->belongsTo('City');
+>>>>>>> develop3
     }
 
-    /**
-     * 都道府県の名前を取得
-     *
-     * @return string
-     */
-
-    public function getPrefecturesAttribute()
-    {
-        return Pref::find($this->pref_id)->name;
-    }
 
     /**
      * 市区町村の名前を取得
