@@ -62,19 +62,11 @@ class CustomerController extends Controller
      */
     public function store(CustomerRequest $request)
     {
-<<<<<<< HEAD:app/Http/Controllers/CustomerController.php
         $customers = new Customer();
 
         $input = $request->input();
         unset($input['_token']);
         $customers->fill(['input' => $input])->save();
-=======
-        $customer = new Customer();
-
-        $input = $request->input();
-        unset($input['_token']);
-        $customer->fill($input)->save();
->>>>>>> develop4:app/Http/Controllers/MainController.php
 
         return redirect('/index');
     }
@@ -102,11 +94,7 @@ class CustomerController extends Controller
 
         $input = $request->input();
         unset($input['_token']);
-<<<<<<< HEAD:app/Http/Controllers/CustomerController.php
         $customers->fill(['input' => $input])->save();
-=======
-        $customer->fill($input)->save();
->>>>>>> develop4:app/Http/Controllers/MainController.php
 
         return redirect('/index');
     }
@@ -144,7 +132,6 @@ class CustomerController extends Controller
         $perPage = config('crud.app.per_page');
         $input = $request->input();
         $prefs = Pref::all();
-<<<<<<< HEAD:app/Http/Controllers/CustomerController.php
 
         if (empty($input)) {
             return Customer::paginate($perPage);
@@ -157,21 +144,6 @@ class CustomerController extends Controller
         }
         if (!empty($input['first_kana'])) {
             $query->where('first_kana', 'like', '%'.$input['first_kana'].'%');
-=======
-        $customers = Customer::all();
-        $query = Customer::query();
-        $lastKana = $request->last_kana;
-        $firstKana = $request->first_kana;
-        $gender1 = $request->gender1;
-        $gender2 = $request->gender2;
-        $prefId = $request->pref_id;
-
-        if (!empty($lastKana)) {
-            $query->where('last_kana', 'like', '%'.$lastKana.'%');
-        }
-        if (!empty($firstKana)) {
-            $query->where('first_kana', 'like', '%'.$firstKana.'%');
->>>>>>> develop4:app/Http/Controllers/MainController.php
         }
 
         if (!empty($input['gender1']) || !empty($input['gender2'])) {
@@ -185,24 +157,11 @@ class CustomerController extends Controller
             $query = $query->whereIn('gender', $genders);
         }
 
-<<<<<<< HEAD:app/Http/Controllers/CustomerController.php
         if (!empty($input['pref_id'])) {
             $query = $query->where('pref_id', '=', $input['pref_id']);
         }
 
         $customers = $query->paginate($perPage);
-=======
-        if (!empty($prefId)) {
-            if ($prefId > 1) {
-                $query->where('pref_id', $prefId);
-            }
-        }
-
-        $perPage = config('crud.app.per_page');
-        $customers = $query->paginate($perPage);
-        return view('index', compact('customers', 'prefs', 'last_kana', 'first_kana', 'gender1', 'gender2', 'pref_id'));
-    }
->>>>>>> develop4:app/Http/Controllers/MainController.php
 
 
 
