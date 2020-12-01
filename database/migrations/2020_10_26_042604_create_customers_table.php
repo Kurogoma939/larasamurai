@@ -38,8 +38,9 @@ class CreateCustomersTable extends Migration
             $table->string('mobile', 255)->nullable(false)->comment('携帯番号');
             $table->string('email', 255)->nullable(false)->unique('email')->comment('メールアドレス');
             $table->text('remarks')->nullable(true)->comment('備考');
-            $table->softDeletes();
-            $table->timestamps();
+
+            $table->timestamp('created_at')->useCurrent()->comment('作成日時');
+            $table->timestamp('updated_at')->useCurrent()->comment('更新日時');
         });
     }
 

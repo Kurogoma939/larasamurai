@@ -13,21 +13,25 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class City extends Model
 {
     protected $guarded = 'id';
-    protected $dates = ['birthday', 'created_at', 'updated_at'];
+    protected $dates = ['created_at', 'updated_at'];
 
     /**
      * @return HasMany
      */
-    public function customers()
+    public function customer()
     {
-        return $this->hasMany('App\Customer');
+<<<<<<< HEAD
+        return $this->hasMany('App\Models\Customer');
+=======
+        return $this->belongsTo('App\Models\Customer');
+>>>>>>> develop3
     }
 
     /**
      * @return BelongsTo
      */
-    public function prefs()
+    public function pref()
     {
-        return $this->belongsTo('App\Pref', 'city_id', 'id');
+        return $this->belongsTo('App\Models\Pref');
     }
 }
