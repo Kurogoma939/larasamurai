@@ -62,13 +62,13 @@ class CustomerController extends Controller
      */
     public function store(CustomerRequest $request)
     {
-        $customers = new Customer();
+        $customer = new Customer();
 
         $input = $request->input();
         unset($input['_token']);
-        $customers->fill(['input' => $input])->save();
+        $customer->fill($input)->save();
 
-        return redirect('/index');
+        return redirect('/index')->with('message', '登録が完了しました。');
     }
 
     /**
@@ -91,12 +91,12 @@ class CustomerController extends Controller
     public function updata(EditRequest $request)
     {
         $customer = Customer::where('id', '=', $request['id'])->first();
-
         $input = $request->input();
         unset($input['_token']);
-        $customer->fill(['input' => $input])->save();
 
-        return redirect('/index');
+        $customer->fill($input)->save();
+
+        return redirect('/index')->with('message', '更新しました。');
     }
 
     /**
@@ -107,8 +107,8 @@ class CustomerController extends Controller
     {
         $prefs = Pref::all();
         $cities = City::all();
-        $customers = Customer::where('id', '=', $request->id)->first();
-        return view('detail', compact('customers', 'prefs', 'cities'));
+        $customer = Customer::where('id', '=', $request->id)->first();
+        return view('detail', compact('customer', 'prefs', 'cities'));
     }
 
     /**
@@ -118,7 +118,7 @@ class CustomerController extends Controller
     public function remove(Request $request)
     {
         $customer = Customer::where('id', '=', $request->id)->delete();
-        return redirect('/index');
+        return redirect('/index')->with('message', '削除が完了しました。');
     }
 
 
@@ -162,8 +162,6 @@ class CustomerController extends Controller
         }
 
         $customers = $query->paginate($perPage);
-
-
 
         return view('index', compact('customers', 'prefs'));
     }

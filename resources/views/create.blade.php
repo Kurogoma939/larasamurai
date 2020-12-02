@@ -200,21 +200,19 @@
             $city.attr('disabled', true);
 
             $.ajax({
-            type: 'GET',
-            url: '/city-ajax',
-            //ココのURLでルーティングとコントローラー
-            data: "pref_id=" + selected_pref_id,
+                type: 'GET',
+                url: '/city-ajax',
+                data: "pref_id=" + selected_pref_id,
             }).done(function (responseJson) {
-            responseJson.forEach(function (city) {
-            // HTMLを⽣成し、市区町村の候補に追加
-            const html = '<option value="' + city.id + '">' + city.name + '</option>';
-            $(html).appendTo($city);
-            });
-            $city.attr('disabled', false);
+                responseJson.forEach(function (city) {
+                    const html = '<option value="' + city.id + '">' + city.name +'</option>';
+                    $(html).appendTo($city);
+                });
+                $city.attr('disabled', false);
             }).fail(function () {
-            alert('市区町村データの取得に失敗しました。');
+                alert('市区町村データの取得に失敗しました。');
             });
-            });
+        });
     </script>}
 
 @endsection

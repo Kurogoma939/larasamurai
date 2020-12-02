@@ -151,7 +151,7 @@
                         <div class="row">
                             <div class="col-md-8 mb-3">
                                 <label for="remarks">備考</label>
-                                <textarea class="form-control" aria-label="With textarea" name="remarks" value="myremarks">{{ $customers->remarks }}</textarea>
+                                <textarea class="form-control" aria-label="With textarea" name="remarks">{{ $customers->remarks }}</textarea>
                             </div>
                         </div>
                 </div>

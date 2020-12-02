@@ -20,7 +20,6 @@ class Customer extends Model
     use SoftDeletes;
 
     protected $guarded = 'id';
-
     protected $dates = ['birthday', 'created_at', 'updated_at','deleted_at'];
 
     /**
@@ -44,7 +43,6 @@ class Customer extends Model
      *
      * @return string
      */
-
     public function getCitiesAttribute()
     {
         return City::find($this->city_id)->name;
