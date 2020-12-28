@@ -4,16 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class City
  * @package App
+ * @method static getList(\Illuminate\Routing\Route|object|string $pref_id)
  */
 class City extends Model
 {
-    protected $guarded = 'id';
+
     protected $dates = ['created_at', 'updated_at'];
+
 
     /**
      * @return BelongsTo

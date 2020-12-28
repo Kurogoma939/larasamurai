@@ -11,10 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return redirect()->route('customer_index');
-});
-
 Route::get('/index', 'CustomerController@getList');
 //検索した時のアクション。
 Route::get('/search', 'CustomerController@search');

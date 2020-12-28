@@ -5,10 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\City;
 
-/**
- * Class CityAjaxController
- * @package App\Http\Controllers
- */
 class CityAjaxController extends Controller
 {
     /**
