@@ -24,7 +24,7 @@
                 </div>
 
                 <div style="margin-bottom:20px;">
-                    <form id="form" method="post" action="/search">
+                    <form id="form" method="get" action="/search">
                         @csrf
 
                         <div class="row">
@@ -136,9 +136,9 @@
                                     <td scope="col"><a class="btn btn-info" href="edit/{{ $customer->id }}">編集</a></td>
                                 </tr>
                            @endforeach
-
                         </tbody>
                     </table>
+                    {{ $customers->appends(Request::all())->links() }}
                 </div>
             </div>
         </div>

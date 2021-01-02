@@ -37,7 +37,10 @@ class CustomerController extends Controller
     {
         $prefs = Pref::all();
         $cities = City::all();
-        $customers = Customer::all();
+
+        $perPage = config('crud.app.per_page');
+        $customers = Customer::paginate($perPage);
+
         return view('index', compact('customers', 'prefs', 'cities'));
     }
 
@@ -87,7 +90,7 @@ class CustomerController extends Controller
      */
     public function updata(EditRequest $request)
     {
-        $customers = Customer::where('id', '=', $request['id'])->first();
+        $customer = Customer::where('id', '=', $request['id'])->first();
 
         $input = $request->input();
         unset($input['_token']);
@@ -118,35 +121,29 @@ class CustomerController extends Controller
         return redirect('/index');
     }
 
-    /**
-     * @return Factory|Application|View
-     */
-    public function find()
-    {
-        $prefs = Pref::all();
-        $customers = Customer::all();
-        return view('/search', compact('customers', 'prefs'));
-    }
 
     /**
      * @param SearchRequest $request
      * @return Factory|Application|View
+     *
+     * ここもっとすっきりさせられる。
      */
     public function search(SearchRequest $request)
     {
         $prefs = Pref::all();
+        $customers = Customer::all();
         $query = Customer::query();
-        $last_kana = $request->last_kana;
-        $first_kana = $request->first_kana;
+        $lastKana = $request->last_kana;
+        $firstKana = $request->first_kana;
         $gender1 = $request->gender1;
         $gender2 = $request->gender2;
-        $pref_id = $request->pref_id;
+        $prefId = $request->pref_id;
 
-        if (!empty($last_kana)) {
-            $query->where('last_kana', 'like', '%'.$last_kana.'%');
+        if (!empty($lastKana)) {
+            $query->where('last_kana', 'like', '%'.$lastKana.'%');
         }
-        if (!empty($first_kana)) {
-            $query->where('first_kana', 'like', '%'.$first_kana.'%');
+        if (!empty($firstKana)) {
+            $query->where('first_kana', 'like', '%'.$firstKana.'%');
         }
 
         if (!empty($input['gender1']) || !empty($input['gender2'])) {
@@ -160,13 +157,15 @@ class CustomerController extends Controller
             $query = $query->whereIn('gender', $genders);
         }
 
-        if (!empty($pref_id)) {
-            if ($pref_id > 1) {
-                $query->where('pref_id', $pref_id);
+        if (!empty($prefId)) {
+            if ($prefId > 1) {
+                $query->where('pref_id', $prefId);
             }
         }
-        $customers = $query->get();
-        return view('/search', compact('customers', 'prefs', 'last_kana', 'first_kana', 'gender1', 'gender2', 'pref_id'));
+
+        $perPage = config('crud.app.per_page');
+        $customers = $query->paginate($perPage);
+        return view('index', compact('customers', 'prefs', 'last_kana', 'first_kana', 'gender1', 'gender2', 'pref_id'));
     }
 
     /**

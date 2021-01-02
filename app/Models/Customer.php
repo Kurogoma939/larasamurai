@@ -24,7 +24,11 @@ class Customer extends Model
      */
     public function pref()
     {
+<<<<<<< HEAD
+        return $this->belongsTo('App\Models\Pref');
+=======
         return $this->belongsTo('Pref');
+>>>>>>> develop3
     }
 
     /**
@@ -32,7 +36,11 @@ class Customer extends Model
      */
     public function city()
     {
+<<<<<<< HEAD
+        return $this->belongsTo('App\Models\City');
+=======
         return $this->belongsTo('City');
+>>>>>>> develop3
     }
 
 
