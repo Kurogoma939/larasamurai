@@ -16,15 +16,12 @@ class City extends Model
     protected $dates = ['created_at', 'updated_at'];
 
     /**
-     * @return HasMany
+     * @return BelongsTo
      */
     public function customer()
     {
-<<<<<<< HEAD
-        return $this->hasMany('App\Models\Customer');
-=======
+
         return $this->belongsTo('App\Models\Customer');
->>>>>>> develop3
     }
 
     /**

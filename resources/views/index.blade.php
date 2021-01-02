@@ -19,9 +19,11 @@
         <div class="container-fluid" style="padding-left: 50px;padding-right: 50px;">
             <div class="py-5 text-center">
 
-                <div class="alert alert-success" role="alert">
-                    【メッセージサンプル】登録が完了しました。
-                </div>
+                @if(Session::has('message'))
+                     <div class="alert alert-success" role="alert">
+                        【メッセージ】：{{ session('message') }}
+                     </div>
+                @endif
 
                 <div style="margin-bottom:20px;">
                     <form id="form" method="get" action="/search">

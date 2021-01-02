@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
@@ -67,12 +68,11 @@ class CustomerController extends Controller
         unset($input['_token']);
         $customer->fill($input)->save();
 
-        return redirect('/index');
+        return redirect('/index')->with('message', '登録が完了しました。');
     }
 
-    //編集画面
-
     /**
+     * 編集画面
      * @param Request $request
      * @return Factory|Application|View
      */
@@ -91,12 +91,12 @@ class CustomerController extends Controller
     public function updata(EditRequest $request)
     {
         $customer = Customer::where('id', '=', $request['id'])->first();
-
         $input = $request->input();
         unset($input['_token']);
+
         $customer->fill($input)->save();
 
-        return redirect('/index');
+        return redirect('/index')->with('message', '更新しました。');
     }
 
     /**
@@ -107,8 +107,8 @@ class CustomerController extends Controller
     {
         $prefs = Pref::all();
         $cities = City::all();
-        $customers = Customer::where('id', '=', $request->id)->first();
-        return view('detail', compact('customers', 'prefs', 'cities'));
+        $customer = Customer::where('id', '=', $request->id)->first();
+        return view('detail', compact('customer', 'prefs', 'cities'));
     }
 
     /**
@@ -118,32 +118,32 @@ class CustomerController extends Controller
     public function remove(Request $request)
     {
         $customer = Customer::where('id', '=', $request->id)->delete();
-        return redirect('/index');
+        return redirect('/index')->with('message', '削除が完了しました。');
     }
 
 
     /**
      * @param SearchRequest $request
-     * @return Factory|Application|View
+     * @return LengthAwarePaginator|Factory|Application|View
      *
-     * ここもっとすっきりさせられる。
      */
     public function search(SearchRequest $request)
     {
+        $perPage = config('crud.app.per_page');
+        $input = $request->input();
         $prefs = Pref::all();
-        $customers = Customer::all();
-        $query = Customer::query();
-        $lastKana = $request->last_kana;
-        $firstKana = $request->first_kana;
-        $gender1 = $request->gender1;
-        $gender2 = $request->gender2;
-        $prefId = $request->pref_id;
 
-        if (!empty($lastKana)) {
-            $query->where('last_kana', 'like', '%'.$lastKana.'%');
+        if (empty($input)) {
+            return Customer::paginate($perPage);
         }
-        if (!empty($firstKana)) {
-            $query->where('first_kana', 'like', '%'.$firstKana.'%');
+
+        $query = Customer::query();
+
+        if (!empty($input['last_kana'])) {
+            $query->where('last_kana', 'like', '%'.$input['last_kana'].'%');
+        }
+        if (!empty($input['first_kana'])) {
+            $query->where('first_kana', 'like', '%'.$input['first_kana'].'%');
         }
 
         if (!empty($input['gender1']) || !empty($input['gender2'])) {
@@ -157,25 +157,12 @@ class CustomerController extends Controller
             $query = $query->whereIn('gender', $genders);
         }
 
-        if (!empty($prefId)) {
-            if ($prefId > 1) {
-                $query->where('pref_id', $prefId);
-            }
+        if (!empty($input['pref_id'])) {
+            $query = $query->where('pref_id', '=', $input['pref_id']);
         }
 
-        $perPage = config('crud.app.per_page');
         $customers = $query->paginate($perPage);
-        return view('index', compact('customers', 'prefs', 'last_kana', 'first_kana', 'gender1', 'gender2', 'pref_id'));
-    }
 
-    /**
-     * @param Request $request
-     * @return mixed
-     * ajaxの処理
-     */
-    public function citySelect(Request $request)
-    {
-        $pref_id = $request->input('pref_id');
-        return City::where('pref_id', $pref_id)->get();
+        return view('index', compact('customers', 'prefs'));
     }
 }

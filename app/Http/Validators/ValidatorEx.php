@@ -18,10 +18,12 @@ class ValidatorEx extends Validator
     /**
      * 入力された場合の数値を検証します。
      *
-     * @param $value
+     * @param 属性 $attribute
+     * @param 値 $value
+     * @param パラメータ $parameters
      * @return bool 検証結果
      */
-    public function validateUniqueEmail($value)
+    public function validateUniqueEmail($attribute, $value, $parameters): bool
     {
         //入力されていない場合は検証しない
         if (empty($value)) {

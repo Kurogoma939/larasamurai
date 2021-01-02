@@ -166,6 +166,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\ValidatorExServiceProvider::class,
+        App\Services\City\CityServiceProvider::class,
+        App\Services\Customer\CustomerServiceProvider::class,
+        App\Services\Pref\PrefServiceProvider::class,
     ],
 
     /*
@@ -177,6 +180,8 @@ return [
     | is started. However, feel free to register as many as you wish as
     | the aliases are "lazy" loaded so they don't hinder performance.
     |
+    |ココに記述することで、パスを省略して書くことができる。
+    |逆にココを見るとその実行経路がわかる。
     */
 
     'aliases' => [
@@ -214,6 +219,10 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+
+        'City' => App\Facades\CityFacade::class,
+        'Customer' => App\Facades\CustomerFacade::class,
+        'Pref' => App\Facades\PrefFacade::class,
 
     ],
 
