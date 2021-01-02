@@ -19,7 +19,7 @@ use Illuminate\View\View;
  * Class MainController
  * @package App\Http\Controllers
  */
-class MainController extends Controller
+class CustomerController extends Controller
 {
     /**
      * @return Factory|Application|View
@@ -60,23 +60,9 @@ class MainController extends Controller
     {
         $customer = new Customer();
 
-        $customer->last_name = $request->input('last_name');
-        $customer->first_name = $request->input('first_name');
-        $customer->last_kana = $request->input('last_kana');
-        $customer->first_kana = $request->input('first_kana');
-        $customer->gender = $request->input('gender');
-        $customer->birthday = $request->input('birthday');
-        $customer->post_code = $request->input('post_code');
-        $customer->pref_id = $request->input('pref_id');
-        $customer->city_id = $request->input('city_id');
-        $customer->address = $request->input('address');
-        $customer->building = $request->input('building');
-        $customer->tel = $request->input('tel');
-        $customer->mobile = $request->input('mobile');
-        $customer->email = $request->input('email');
-        $customer->remarks = $request->input('remarks');
-
-        $customer->save();
+        $input = $request->input();
+        unset($input['_token']);
+        $customer->fill($input)->save();
 
         return redirect('/index');
     }
@@ -103,23 +89,9 @@ class MainController extends Controller
     {
         $customers = Customer::where('id', '=', $request['id'])->first();
 
-        $customers->last_name = $request->last_name;
-        $customers->first_name = $request->first_name;
-        $customers->last_kana = $request->last_kana;
-        $customers->first_kana = $request->first_kana;
-        $customers->gender = $request->gender;
-        $customers->birthday = $request->birthday;
-        $customers->post_code = $request->post_code;
-        $customers->pref_id = $request->pref_id;
-        $customers->city_id = $request->city_id;
-        $customers->address = $request->address;
-        $customers->building = $request->building;
-        $customers->tel = $request->tel;
-        $customers->mobile = $request->mobile;
-        $customers->email = $request->email;
-        $customers->remarks = $request->remarks;
-
-        $customers->save();
+        $input = $request->input();
+        unset($input['_token']);
+        $customer->fill($input)->save();
 
         return redirect('/index');
     }

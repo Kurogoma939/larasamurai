@@ -112,6 +112,7 @@
                                 <th scope="col">メールアドレス</th>
                                 <th scope="col">作成日時</th>
                                 <th scope="col">更新日時</th>
+                                <th scope="col">削除日時</th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>
@@ -124,13 +125,14 @@
                                     <td scope="col">{{ $customer->gender }}</td>
                                     <td scope="col">{{ $customer->birthday->format('Y/n/d') }}</td>
                                     <td scope="col">{{ $customer->post_code }}</td>
-                                    <td scope="col">{{ $customer->prefectures }}</td>
-                                    <td scope="col">{{ $customer->cities }}</td>
+                                    <td scope="col">{{ $customer->pref->name }}</td>
+                                    <td scope="col">{{ $customer->city->name }}</td>
                                     <td scope="col">{{ $customer->tel }}</td>
                                     <td scope="col">{{ $customer->mobile }}</td>
                                     <td scope="col">{{ $customer->email }}</td>
                                     <td scope="col">{{ $customer->created_at }}</td>
                                     <td scope="col">{{ $customer->updated_at }}</td>
+                                    <td scope="col">{{ $customer->deleted_at }}</td>
                                     <td scope="col"><a class="btn btn-info" href="edit/{{ $customer->id }}">編集</a></td>
                                 </tr>
                            @endforeach

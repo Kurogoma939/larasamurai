@@ -65,12 +65,12 @@
                     <div class="row">
                         <div class="col-md-2 mb-3">
                             <label for="prefId">都道府県</label>
-                            <input type="text" class="form-control" name="pref_id" value="{{ $customers->prefectures }}" readonly>
+                            <input type="text" class="form-control" name="pref_id" value="{{ $customers->pref->name }}" readonly>
                         </div>
 
                         <div>
                             <label for="cityfId">市区町村</label>
-                            <input type="text" class="form-control" name="cityfId" value="{{$customers->cities}}" readonly>
+                            <input type="text" class="form-control" name="cityfId" value="{{$customers->city->name }}" readonly>
                         </div>
 
                     </div>

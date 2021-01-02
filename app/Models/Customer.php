@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Routing\Route;
 
 /**
@@ -13,36 +14,27 @@ use Illuminate\Routing\Route;
  */
 class Customer extends Model
 {
+    use SoftDeletes;
 
     protected $guarded = 'id';
-    protected $dates = ['birthday', 'created_at', 'updated_at'];
+    protected $dates = ['birthday', 'created_at', 'updated_at','deleted_at'];
 
     /**
      * @return BelongsTo
      */
-    public function prefs()
+    public function pref()
     {
-        return $this->belongsTo('Pref', 'pref_id', 'id');
+        return $this->belongsTo('Pref');
     }
 
     /**
      * @return BelongsTo
      */
-    public function cities()
+    public function city()
     {
-        return $this->belongsTo('City', 'city_id', 'id');
+        return $this->belongsTo('City');
     }
 
-    /**
-     * 都道府県の名前を取得
-     *
-     * @return string
-     */
-
-    public function getPrefecturesAttribute()
-    {
-        return Pref::find($this->pref_id)->name;
-    }
 
     /**
      * 市区町村の名前を取得
